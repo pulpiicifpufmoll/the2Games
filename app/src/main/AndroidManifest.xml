@@ -13,6 +13,9 @@
             android:theme="@style/Theme.The2Games"
             tools:targetApi="34">
         <activity
+                android:name=".ActivitySenku"
+                android:exported="false"/>
+        <activity
                 android:name=".Activity2048"
                 android:exported="false"/>
         <activity

@@ -20,16 +20,17 @@
         <Button
                 android:onClick="activity2048"
                 android:textColor="@color/black"
-                android:layout_margin="5px"
-                android:text="2048"
+                android:layout_margin="5dp"
+                android:text="@string/_2048"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/button2"
                 android:backgroundTint="#AAC3FE"/>
         <Button
+                android:onClick="activitySenku"
                 android:textColor="@color/black"
                 android:backgroundTint="#F67E9C"
-                android:layout_margin="5px"
-                android:text="Senku"
+                android:layout_margin="5dp"
+                android:text="@string/senku"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/button"
         />

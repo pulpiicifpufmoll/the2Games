@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">The2Games</string>
+    <string name="app_name">the2Games</string>
+    <string name="_2048">2048</string>
+    <string name="senku">Senku</string>
 </resources>

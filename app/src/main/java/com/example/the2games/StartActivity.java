@@ -17,4 +17,9 @@ public class StartActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Activity2048.class);
         startActivity(intent);
     }
+
+    public void activitySenku(View view){
+        Intent intent = new Intent(this, ActivitySenku.class);
+        startActivity(intent);
+    }
 }

@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="panelBackground">#bbada0</color>
+    <color name="backSquare">#cdc1b4</color>
+    <color name="mainBackground">#faf8ef</color>
+    <color name="fontColor">#776e65</color>
 </resources>
