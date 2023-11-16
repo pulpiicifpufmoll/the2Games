@@ -14,171 +14,226 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="18dp" android:id="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="18dp">
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton61" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="234dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton62" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="234dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton63" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="234dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton64" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="74dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton65" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="74dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton66" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="74dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton67" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="266dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton68" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="266dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton69" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="266dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton50" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="106dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton51" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="106dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton52" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="106dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton53" tools:layout_editor_absoluteY="87dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton54" tools:layout_editor_absoluteY="87dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton55" tools:layout_editor_absoluteY="55dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton56" tools:layout_editor_absoluteY="55dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton57" tools:layout_editor_absoluteY="215dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton58" tools:layout_editor_absoluteY="215dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton59" tools:layout_editor_absoluteY="247dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton60" tools:layout_editor_absoluteY="247dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton44" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton45" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton46" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="202dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton47" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton48" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton49" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="138dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton42" tools:layout_editor_absoluteY="215dp"
-                tools:layout_editor_absoluteX="170dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton43" tools:layout_editor_absoluteY="247dp"
-                tools:layout_editor_absoluteX="170dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton40" tools:layout_editor_absoluteY="87dp"
-                tools:layout_editor_absoluteX="170dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton41" tools:layout_editor_absoluteY="55dp"
-                tools:layout_editor_absoluteX="170dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton39" tools:layout_editor_absoluteY="183dp"
-                tools:layout_editor_absoluteX="170dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton37" tools:layout_editor_absoluteY="151dp"
-                tools:layout_editor_absoluteX="171dp" android:backgroundTint="#00FFFFFF"/>
-        <ImageButton
-                android:layout_width="32dp"
-                android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off"
-                android:id="@+id/imageButton38" tools:layout_editor_absoluteY="119dp"
-                tools:layout_editor_absoluteX="170dp" android:backgroundTint="#00FFFFFF"/>
+
+        <androidx.gridlayout.widget.GridLayout
+                android:layout_width="225dp"
+                android:layout_height="223dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="52dp" android:layout_marginEnd="76dp">
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff23" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff24" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff25" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff26" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff27" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff28" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff29" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff30" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff31" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff32" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff33" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff34" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="4"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff35" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff36" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff37" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff38" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff39" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff40" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff41" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="5"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff42" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff43" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff44" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff45" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff46" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff47" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff48" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="6"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff49" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff16" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff17" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff18" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff19" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff20" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff21" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff8" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff9" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff10" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff11" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff12" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff13" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="1"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff14" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="2"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff15" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff1" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="1" android:id="@+id/senkuCircleOff2" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="2" android:id="@+id/senkuCircleOff3" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="3" android:id="@+id/senkuCircleOff4" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="4" android:id="@+id/senkuCircleOff5" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="5" android:id="@+id/senkuCircleOff6" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:visibility="invisible"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="0"
+                    app:layout_column="6" android:id="@+id/senkuCircleOff7" android:backgroundTint="#00FFFFFF"/>
+            <ImageButton
+                    android:layout_width="32dp"
+                    android:layout_height="32dp" app:srcCompat="@drawable/senku_btn_off" app:layout_row="3"
+                    app:layout_column="0" android:id="@+id/senkuCircleOff22" android:backgroundTint="#00FFFFFF"
+            />
+        </androidx.gridlayout.widget.GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="376dp"
@@ -212,8 +267,7 @@
                 android:textSize="60dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/textView7"
-                tools:layout_editor_absoluteX="1dp"
-                android:layout_marginBottom="16dp"/>
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -222,6 +276,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7">
 
             <Button
+                    android:onClick="backSenkuToStartMenu"
                     android:text="Back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/button17"

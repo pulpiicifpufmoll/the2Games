@@ -13,7 +13,7 @@ public class Activity2048 extends AppCompatActivity {
         setContentView(R.layout.activity_2048);
     }
 
-    public void backToStartMenu(View view){
+    public void back2048ToStartMenu(View view){
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
