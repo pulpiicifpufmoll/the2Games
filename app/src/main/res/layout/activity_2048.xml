@@ -131,7 +131,7 @@
 
                 <Button
                         android:onClick="back2048ToStartMenu"
-                        android:text="Back"
+                        android:text="@string/backBtnText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/backBtn"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
