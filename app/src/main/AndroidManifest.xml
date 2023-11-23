@@ -16,10 +16,10 @@
                 android:name=".ActivitySenku"
                 android:exported="false"/>
         <activity
-                android:name=".Activity2048"
+                android:name=".StartActivity"
                 android:exported="false"/>
         <activity
-                android:name=".StartActivity"
+                android:name=".Activity2048"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
