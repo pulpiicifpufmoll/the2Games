@@ -50,8 +50,6 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
 
     private void generateBoxes() {
         try {
-            GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-
             String targetRow = String.valueOf(rand.nextInt(4));
             String targetColumn = String.valueOf(rand.nextInt(4));
 
@@ -59,17 +57,8 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                 Log.d("test", "ya existe");
                 return;
             }
-
-            params.rowSpec = GridLayout.spec(Integer.parseInt(targetRow));
-            params.columnSpec = GridLayout.spec(Integer.parseInt(targetColumn));
-            params.width = GridLayout.LayoutParams.MATCH_PARENT;
-            params.height = GridLayout.LayoutParams.MATCH_PARENT;
-
-            Box button2 = new Box(this, "2", params, targetRow, targetColumn);
+            Box button2 = new Box(this, "2", targetRow, targetColumn);
             gridLayout2048.addView(button2);
-
-            Button backSquare = findIdBackSquareByCellPosition(targetRow, targetColumn);
-            backSquare.setVisibility(View.INVISIBLE);
 
         } catch (Exception e) {
             Log.d("test", e.getMessage());
@@ -81,11 +70,6 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
             return true;
         }
         return false;
-    }
-
-    private Button findIdBackSquareByCellPosition(String rowSpec, String columnSpec) {
-        @SuppressLint("DiscouragedApi") int id = resources.getIdentifier("backSquare" + rowSpec + columnSpec, "id", packageName);
-        return findViewById(id);
     }
 
     @Override
@@ -101,25 +85,16 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
             // Deslizamiento horizontal
             if (deltaX > 0) {
-                Log.d("test","DERECHAZO");
                 moverCasillas("horizontal", "derecha");
-
             } else {
-                Log.d("test","IZQUIERDAZOO");
-
-                // Deslizamiento hacia la izquierda
-
+                moverCasillas("horizontal", "izquierda");
             }
         } else {
             // Deslizamiento vertical
             if (deltaY > 0) {
-                Log.d("test","ABAJAZOOOO");
-                // Deslizamiento hacia abajo
-
+                moverCasillas("vertical", "abajo");
             } else {
-                Log.d("test","ARRIBAZO");
-                // Deslizamiento hacia arriba
-
+                moverCasillas("vertical", "arriba");
             }
         }
 
@@ -128,19 +103,56 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
 
     @SuppressLint("ResourceType")
     private void moverCasillas(String eje, String direccion) {
-        if (eje.equals("horizontal")){
-            if (direccion.equals("derecha")){
-                for (int i = NUM_COLUMNAS - 1; i >= 1; i--) {
-                    for (int j = 0; j <= NUM_FILAS - 1 ; j++) {
-                        if (findViewById(00) != null){
-                            Box x = findViewById(00);
-                            x.moverDerecha();
-                            Log.d("test", "EURECAAAA");
+        try {
+            if (eje.equals("horizontal")){
+                if (direccion.equals("derecha")){
+                    for (int i = NUM_COLUMNAS - 1; i >= 0; i--) {
+                        for (int j = 0; j <= NUM_FILAS - 1 ; j++) {
+                            String idParsed = String.valueOf(j) +  String.valueOf(i);
+                            Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
+                            if (boxToMoVE != null){
+                                boxToMoVE.moverDerecha();
+                            }
+                        }
+                    }
+                } else if (direccion.equals("izquierda")){
+                    for (int i = 1; i <= NUM_COLUMNAS - 1; i--) {
+                        for (int j = 0; j <= NUM_FILAS - 1 ; j++) {
+                            String idParsed = String.valueOf(j) +  String.valueOf(i);
+                            Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
+                            if (boxToMoVE != null){
+                                boxToMoVE.moverIzquierda();
+                            }
+                        }
+                    }
+                }
+            } else if (eje.equals("vertical")){
+                if (direccion.equals("arriba")){
+                    for (int i = 0; i <= NUM_COLUMNAS - 1; i++) {
+                        for (int j = 1; j <= NUM_FILAS - 1 ; j++) {
+                            String idParsed = String.valueOf(j) +  String.valueOf(i);
+                            Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
+                            if (boxToMoVE != null){
+                                boxToMoVE.moverArriba();
+                            }
+                        }
+                    }
+                } else if (direccion.equals("abajo")){
+                    for (int i = 0; i <= NUM_COLUMNAS - 1; i++) {
+                        for (int j = NUM_FILAS - 1; j >= 0 ; j--) {
+                            String idParsed = String.valueOf(j) +  String.valueOf(i);
+                            Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
+                            if (boxToMoVE != null){
+                                boxToMoVE.moverAbajo();
+                            }
                         }
                     }
                 }
             }
+        } catch (Exception e){
+            Log.d("test", e.getMessage());
         }
+
     }
 
     @Override
