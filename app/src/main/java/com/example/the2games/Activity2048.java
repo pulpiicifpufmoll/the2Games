@@ -63,7 +63,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                 Log.d("test", "ya existe");
                 return;
             }
-            Box button2 = new Box(this, targetRow + targetColumn, targetRow, targetColumn);
+            Box button2 = new Box(this, "2", targetRow, targetColumn);
             gridLayout2048.addView(button2);
 
         } catch (Exception e) {
@@ -162,6 +162,10 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
             Log.d("test", e.getMessage());
         }
 
+    }
+
+    public GridLayout getGridLayout2048() {
+        return gridLayout2048;
     }
 
     @Override

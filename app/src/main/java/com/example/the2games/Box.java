@@ -14,23 +14,20 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
     private int rowPosition;
     private int columnPosition;
     private String value;
-
     private GridLayout.LayoutParams defaultParams = new GridLayout.LayoutParams();
 
     @SuppressLint({"ResourceType", "DefaultLocale"})
     public Box(Context context, String value, String targetRow, String targetColumn) {
         super(context);
-
         this.setClickable(false);
-        this.value = value;
+
         this.rowPosition = Integer.parseInt(targetRow);
         this.columnPosition = Integer.parseInt(targetColumn);
-
         this.defaultParams.rowSpec = GridLayout.spec(Integer.parseInt(targetRow));
         this.defaultParams.columnSpec = GridLayout.spec(Integer.parseInt(targetColumn));
 
         float density = getResources().getDisplayMetrics().density;
-        this.defaultParams.width = (int) (80 * density);
+        this.defaultParams.width = (int) (82 * density);
         this.defaultParams.height = (int) (80  * density);
         this.defaultParams.leftMargin = (int) (3 * density);
 
@@ -71,6 +68,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
         switch (value){
             case "2":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box2)));
+                this.value = value;
                 this.setText("2");
                 break;
             case "4":
@@ -102,14 +100,26 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                 this.setText("256");
                 break;
         }
-        setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.black)));
+    }
+
+    private void mergeWithNextBox(Box nextBox){
+        int nextValue = Integer.parseInt(this.value) * 2;
+
+        nextBox.setText(String.valueOf(nextValue));
+        nextBox.value = String.valueOf(nextValue);
+        nextBox.setValueAndStyle(String.valueOf(nextValue));
+
+        this.deleteBox();
+    }
+
+    private void deleteBox(){
+        ((Activity2048) getContext()).getGridLayout2048().removeView(this);
     }
 
     private GridLayout.LayoutParams getNextPosition(String direction){
         try {
             int column = getColumnPosition();
             int row = getRowPosition();
-            //TODO esto tendrá que ser 2 4 8 16...
             String updateValueTest = "";
             int updatedId;
             switch (direction){
@@ -122,9 +132,8 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
                         if (nextBoxOfTarget != null){
                             if (this.value.equals(nextBoxOfTarget.getValue())){
-                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
-                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
-                                //this.setText(updateValueTest);
+                                mergeWithNextBox(nextBoxOfTarget);
+                                break;
                             } else {
                                 Log.d("test", "BOX AL LADO!!");
                                 break;
@@ -138,7 +147,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
                     }
-                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
                 case "izquierda":
                     while (true){
@@ -147,12 +155,10 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         }
                         String idParsed = String.valueOf(row) +  String.valueOf(column - 1);
                         Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
-
                         if (nextBoxOfTarget != null){
                             if (this.value.equals(nextBoxOfTarget.getValue())){
-                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
-                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
-                                //this.setText(updateValueTest);
+                                mergeWithNextBox(nextBoxOfTarget);
+                                break;
                             } else {
                                 Log.d("test", "BOX AL LADO!!");
                                 break;
@@ -166,7 +172,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
                     }
-                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
                 case "arriba":
                     while (true){
@@ -177,9 +182,8 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
                         if (nextBoxOfTarget != null){
                             if (this.value.equals(nextBoxOfTarget.getValue())){
-                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
-                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
-                                //this.setText(updateValueTest);
+                                mergeWithNextBox(nextBoxOfTarget);
+                                break;
                             } else {
                                 Log.d("test", "BOX AL LADO!!");
                                 break;
@@ -193,7 +197,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
                     }
-                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
                 case "abajo":
                     while (true){
@@ -204,9 +207,8 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
                         if (nextBoxOfTarget != null){
                             if (this.value.equals(nextBoxOfTarget.getValue())){
-                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
-                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
-                                //this.setText(updateValueTest);
+                                mergeWithNextBox(nextBoxOfTarget);
+                                break;
                             } else {
                                 Log.d("test", "BOX AL LADO!!");
                                 break;
@@ -220,7 +222,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
                     }
-                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
             }
         } catch (Exception e){
