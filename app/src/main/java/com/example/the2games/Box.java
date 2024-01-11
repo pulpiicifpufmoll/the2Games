@@ -3,10 +3,11 @@ package com.example.the2games;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
-import androidx.core.content.ContextCompat;
-import android.graphics.Color;
 import android.util.Log;
+import androidx.core.content.ContextCompat;
 import androidx.gridlayout.widget.GridLayout;
+
+import java.util.ArrayList;
 
 @SuppressLint("ViewConstructor")
 public class Box extends androidx.appcompat.widget.AppCompatButton {
@@ -20,6 +21,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
     public Box(Context context, String value, String targetRow, String targetColumn) {
         super(context);
 
+        this.setClickable(false);
         this.value = value;
         this.rowPosition = Integer.parseInt(targetRow);
         this.columnPosition = Integer.parseInt(targetColumn);
@@ -32,13 +34,17 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
         this.defaultParams.height = (int) (80  * density);
         this.defaultParams.leftMargin = (int) (3 * density);
 
+        this.setLayoutParams(defaultParams);
+
+        setValueAndStyle(value);
+        //this.setBackgroundTintList(setValueAndStyle(value));
+        //String laMezlca = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
+        //this.setText(laMezlca);
 
         String concatenatedRowColumn = targetRow + targetColumn;
-        this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box2)));
-        this.setLayoutParams(defaultParams);
         this.setId(Integer.parseInt(String.format("%02d", Integer.parseInt(concatenatedRowColumn))));
+
         this.setTextAppearance(R.style.SquareButtonText);
-        this.setText(value);
     }
 
     public void moverDerecha(){
@@ -61,34 +67,160 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
         this.setLayoutParams(this.defaultParams);
     }
 
+    private void setValueAndStyle(String value){
+        switch (value){
+            case "2":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box2)));
+                this.setText("2");
+                break;
+            case "4":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box4)));
+                this.setText("4");
+                break;
+            case "8":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box8)));
+                this.setText("8");
+                break;
+            case "16":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box16)));
+                this.setText("16");
+                break;
+            case "32":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box32)));
+                this.setText("32");
+                break;
+            case "64":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box64)));
+                this.setText("64");
+                break;
+            case "128":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box128)));
+                this.setText("128");
+                break;
+            case "256":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box256)));
+                this.setText("256");
+                break;
+        }
+        setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.black)));
+    }
+
     private GridLayout.LayoutParams getNextPosition(String direction){
         try {
             int column = getColumnPosition();
             int row = getRowPosition();
+            //TODO esto tendrá que ser 2 4 8 16...
+            String updateValueTest = "";
+            int updatedId;
             switch (direction){
                 case "derecha":
-                    column++;
-                    setColumnPosition(Math.min(column, 3));
-                    this.defaultParams.columnSpec = GridLayout.spec(Math.min(column, 3));
-                    this.defaultParams.rowSpec = GridLayout.spec(row);
+                    while (true){
+                        if (column == 3){
+                            break;
+                        }
+                        String idParsed = String.valueOf(row) +  String.valueOf(column + 1);
+                        Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
+                        if (nextBoxOfTarget != null){
+                            if (this.value.equals(nextBoxOfTarget.getValue())){
+                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
+                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
+                                //this.setText(updateValueTest);
+                            } else {
+                                Log.d("test", "BOX AL LADO!!");
+                                break;
+                            }
+                        }
+                        column++;
+                        setColumnPosition(column);
+                        updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
+                        this.setText(updateValueTest);
+                        this.setId(Integer.parseInt(updateValueTest));
+                        this.defaultParams.columnSpec = GridLayout.spec(column);
+                        this.defaultParams.rowSpec = GridLayout.spec(row);
+                    }
+                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
                 case "izquierda":
-                    column--;
-                    setColumnPosition(Math.max(column, 0));
-                    this.defaultParams.columnSpec = GridLayout.spec(Math.max(column, 0));
-                    this.defaultParams.rowSpec = GridLayout.spec(row);
+                    while (true){
+                        if (column == 0){
+                            break;
+                        }
+                        String idParsed = String.valueOf(row) +  String.valueOf(column - 1);
+                        Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
+
+                        if (nextBoxOfTarget != null){
+                            if (this.value.equals(nextBoxOfTarget.getValue())){
+                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
+                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
+                                //this.setText(updateValueTest);
+                            } else {
+                                Log.d("test", "BOX AL LADO!!");
+                                break;
+                            }
+                        }
+                        column--;
+                        setColumnPosition(column);
+                        updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
+                        this.setText(updateValueTest);
+                        this.setId(Integer.parseInt(updateValueTest));
+                        this.defaultParams.columnSpec = GridLayout.spec(column);
+                        this.defaultParams.rowSpec = GridLayout.spec(row);
+                    }
+                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
                 case "arriba":
-                    row--;
-                    setRowPosition((Math.max(row, 0)));
-                    this.defaultParams.rowSpec = GridLayout.spec(Math.max(row, 0));
-                    this.defaultParams.columnSpec = GridLayout.spec(column);
+                    while (true){
+                        if (row == 0){
+                            break;
+                        }
+                        String idParsed = String.valueOf(row - 1) +  String.valueOf(column);
+                        Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
+                        if (nextBoxOfTarget != null){
+                            if (this.value.equals(nextBoxOfTarget.getValue())){
+                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
+                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
+                                //this.setText(updateValueTest);
+                            } else {
+                                Log.d("test", "BOX AL LADO!!");
+                                break;
+                            }
+                        }
+                        row--;
+                        setRowPosition(row);
+                        updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
+                        this.setText(updateValueTest);
+                        this.setId(Integer.parseInt(updateValueTest));
+                        this.defaultParams.columnSpec = GridLayout.spec(column);
+                        this.defaultParams.rowSpec = GridLayout.spec(row);
+                    }
+                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
                 case "abajo":
-                    row++;
-                    setRowPosition((Math.min(row, 3)));
-                    this.defaultParams.rowSpec = GridLayout.spec(Math.min(row, 3));
-                    this.defaultParams.columnSpec = GridLayout.spec(column);
+                    while (true){
+                        if (row == 3){
+                            break;
+                        }
+                        String idParsed = String.valueOf(row + 1) +  String.valueOf(column);
+                        Box nextBoxOfTarget = ((Activity2048) getContext()).findViewById(Integer.parseInt(idParsed));
+                        if (nextBoxOfTarget != null){
+                            if (this.value.equals(nextBoxOfTarget.getValue())){
+                                //TODO irá la movida de multiplicar los valores para dar el nuevo,
+                                // luego tocará cambiar el estilo el cuadrado en base al nuevo valor
+                                //this.setText(updateValueTest);
+                            } else {
+                                Log.d("test", "BOX AL LADO!!");
+                                break;
+                            }
+                        }
+                        row++;
+                        setRowPosition(row);
+                        updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
+                        this.setText(updateValueTest);
+                        this.setId(Integer.parseInt(updateValueTest));
+                        this.defaultParams.columnSpec = GridLayout.spec(column);
+                        this.defaultParams.rowSpec = GridLayout.spec(row);
+                    }
+                    Log.d("test", "NUEVO ID: " +  String.valueOf(Integer.parseInt(updateValueTest)));
                     return getDefaultParams();
             }
         } catch (Exception e){

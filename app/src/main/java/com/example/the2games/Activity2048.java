@@ -9,6 +9,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.gridlayout.widget.GridLayout;
@@ -16,6 +17,7 @@ import androidx.gridlayout.widget.GridLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Activity2048 extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -28,6 +30,8 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
     private String packageName;
     private GridLayout gridLayout2048;
     private Button playButton;
+    private TextView actualScore;
+    private TextView bestScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         this.packageName = getPackageName();
         this.gridLayout2048 = findViewById(R.id.gridLayout2048);
         this.playButton = findViewById(R.id.newGameBtn);
+        this.bestScore = findViewById(R.id.best);
+        this.actualScore = findViewById(R.id.score);
         this.playButton.setOnClickListener(v -> {
             generateBoxes();
         });
@@ -57,7 +63,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                 Log.d("test", "ya existe");
                 return;
             }
-            Box button2 = new Box(this, "2", targetRow, targetColumn);
+            Box button2 = new Box(this, targetRow + targetColumn, targetRow, targetColumn);
             gridLayout2048.addView(button2);
 
         } catch (Exception e) {
@@ -106,7 +112,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         try {
             if (eje.equals("horizontal")){
                 if (direccion.equals("derecha")){
-                    for (int i = NUM_COLUMNAS - 1; i >= 0; i--) {
+                    for (int i = NUM_COLUMNAS - 2; i >= 0; i--) {
                         for (int j = 0; j <= NUM_FILAS - 1 ; j++) {
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
@@ -116,11 +122,12 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                         }
                     }
                 } else if (direccion.equals("izquierda")){
-                    for (int i = 1; i <= NUM_COLUMNAS - 1; i--) {
+                    for (int i = 1; i <= NUM_COLUMNAS - 1; i++) {
                         for (int j = 0; j <= NUM_FILAS - 1 ; j++) {
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
+                                Log.d("test", "BOX EXISTENTE ID: " + boxToMoVE.getId());
                                 boxToMoVE.moverIzquierda();
                             }
                         }
@@ -133,16 +140,18 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
+                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverArriba();
                             }
                         }
                     }
                 } else if (direccion.equals("abajo")){
                     for (int i = 0; i <= NUM_COLUMNAS - 1; i++) {
-                        for (int j = NUM_FILAS - 1; j >= 0 ; j--) {
+                        for (int j = NUM_FILAS - 2; j >= 0 ; j--) {
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
+                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverAbajo();
                             }
                         }

@@ -14,7 +14,7 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="Box2">
+    <style name="box2">
         <item name="android:backgroundTint">@color/box2</item>
     </style>
 </resources>
