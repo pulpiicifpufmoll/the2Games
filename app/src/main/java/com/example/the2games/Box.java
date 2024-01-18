@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.util.Log;
+import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.gridlayout.widget.GridLayout;
 
@@ -73,41 +74,55 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                 break;
             case "4":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box4)));
+                this.value = value;
                 this.setText("4");
                 break;
             case "8":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box8)));
+                this.value = value;
                 this.setText("8");
                 break;
             case "16":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box16)));
+                this.value = value;
                 this.setText("16");
                 break;
             case "32":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box32)));
+                this.value = value;
                 this.setText("32");
                 break;
             case "64":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box64)));
+                this.value = value;
                 this.setText("64");
                 break;
             case "128":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box128)));
+                this.value = value;
                 this.setText("128");
                 break;
             case "256":
                 this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box256)));
+                this.value = value;
                 this.setText("256");
                 break;
         }
     }
 
+    //PENDIENTE CORREGIR BEST SCORE Y ACTUAL SCORE (HACE ENTRAR AL CATCH)
     private void mergeWithNextBox(Box nextBox){
         int nextValue = Integer.parseInt(this.value) * 2;
 
-        nextBox.setText(String.valueOf(nextValue));
-        nextBox.value = String.valueOf(nextValue);
+        //nextBox.setText(String.valueOf(nextValue));
+        //nextBox.value = String.valueOf(nextValue);
         nextBox.setValueAndStyle(String.valueOf(nextValue));
+        String bestScoreValue = ((Activity2048) getContext()).getBestScore().getText().toString();
+        Log.d("test", "BEST SCORE: " + bestScoreValue);
+        if (nextValue > Integer.valueOf(bestScoreValue)){
+            TextView bestScore = ((Activity2048) getContext()).getBestScore();
+            bestScore.setText(bestScore.toString());
+        }
 
         this.deleteBox();
     }
@@ -121,7 +136,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
             int column = getColumnPosition();
             int row = getRowPosition();
             String updateValueTest = "";
-            int updatedId;
             switch (direction){
                 case "derecha":
                     while (true){
@@ -142,7 +156,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         column++;
                         setColumnPosition(column);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        this.setText(updateValueTest);
+                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
@@ -167,7 +181,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         column--;
                         setColumnPosition(column);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        this.setText(updateValueTest);
+                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
@@ -192,7 +206,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         row--;
                         setRowPosition(row);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        this.setText(updateValueTest);
+                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
@@ -217,7 +231,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         row++;
                         setRowPosition(row);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        this.setText(updateValueTest);
+                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);

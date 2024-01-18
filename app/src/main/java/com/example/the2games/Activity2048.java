@@ -3,7 +3,6 @@ package com.example.the2games;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -17,7 +16,6 @@ import androidx.gridlayout.widget.GridLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Activity2048 extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -32,6 +30,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
     private Button playButton;
     private TextView actualScore;
     private TextView bestScore;
+    private boolean isGameStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,12 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         this.playButton = findViewById(R.id.newGameBtn);
         this.bestScore = findViewById(R.id.best);
         this.actualScore = findViewById(R.id.score);
+        this.isGameStarted = false;
         this.playButton.setOnClickListener(v -> {
-            generateBoxes();
+            if (!isGameStarted){
+                generateBoxes();
+                isGameStarted = true;
+            }
         });
     }
 
@@ -78,37 +81,8 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         return false;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return myGestureListener.onTouchEvent(event) || super.onTouchEvent(event);
-    }
-
-    @Override
-    public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
-        float deltaX = e2.getX() - e1.getX();
-        float deltaY = e2.getY() - e1.getY();
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Deslizamiento horizontal
-            if (deltaX > 0) {
-                moverCasillas("horizontal", "derecha");
-            } else {
-                moverCasillas("horizontal", "izquierda");
-            }
-        } else {
-            // Deslizamiento vertical
-            if (deltaY > 0) {
-                moverCasillas("vertical", "abajo");
-            } else {
-                moverCasillas("vertical", "arriba");
-            }
-        }
-
-        return true;
-    }
-
     @SuppressLint("ResourceType")
-    private void moverCasillas(String eje, String direccion) {
+    private void moveBoxes(String eje, String direccion) {
         try {
             if (eje.equals("horizontal")){
                 if (direccion.equals("derecha")){
@@ -117,7 +91,10 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
+                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverDerecha();
+                                //updateActualScore();
+                                //Log.d("test", "ACTUAL SCORE: " + getActualScore().getText().toString());
                             }
                         }
                     }
@@ -127,7 +104,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
-                                Log.d("test", "BOX EXISTENTE ID: " + boxToMoVE.getId());
+                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverIzquierda();
                             }
                         }
@@ -158,14 +135,86 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                     }
                 }
             }
+            boolean isFull = isGridFull();
         } catch (Exception e){
             Log.d("test", e.getMessage());
         }
 
     }
 
+    private void updateActualScore(){
+        TextView actualScore = getActualScore();
+
+        int updatedScore = Integer.parseInt(actualScore.getText().toString()) + 1;
+
+        this.actualScore.setText(updatedScore);
+    }
+
+    private boolean isGridFull(){
+        int totalBoxes = gridLayout2048.getChildCount();
+        if (totalBoxes >= 32){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return myGestureListener.onTouchEvent(event) || super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onFling(@Nullable MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+        float deltaX = e2.getX() - e1.getX();
+        float deltaY = e2.getY() - e1.getY();
+
+        if (!isGridFull()){
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                // Deslizamiento horizontal
+                if (deltaX > 0) {
+                    moveBoxes("horizontal", "derecha");
+                } else {
+                    moveBoxes("horizontal", "izquierda");
+                }
+            } else {
+                // Deslizamiento vertical
+                if (deltaY > 0) {
+                    moveBoxes("vertical", "abajo");
+                } else {
+                    moveBoxes("vertical", "arriba");
+                }
+            }
+            generateBoxes();
+        }
+        return true;
+    }
+
     public GridLayout getGridLayout2048() {
         return gridLayout2048;
+    }
+
+    public TextView getActualScore() {
+        return actualScore;
+    }
+
+    public void setActualScore(TextView actualScore) {
+        this.actualScore = actualScore;
+    }
+
+    public TextView getBestScore() {
+        return bestScore;
+    }
+
+    public void setBestScore(TextView bestScore) {
+        this.bestScore = bestScore;
+    }
+
+    public boolean isGameStarted() {
+        return isGameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        isGameStarted = gameStarted;
     }
 
     @Override
