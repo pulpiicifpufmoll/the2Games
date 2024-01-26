@@ -163,7 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="88dp" android:id="@+id/linearLayout">
                 <TextView
-                        android:text="0"
+                        android:text="4"
                         android:id="@+id/score"
                         android:background="@color/panelBackground"
                         android:textColor="@color/white"

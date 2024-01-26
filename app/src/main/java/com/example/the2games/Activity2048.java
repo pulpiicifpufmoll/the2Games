@@ -135,19 +135,12 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                     }
                 }
             }
+            //TODO FIN DEL JUEGO SI DEVUELVE TRUE
             boolean isFull = isGridFull();
         } catch (Exception e){
             Log.d("test", e.getMessage());
         }
 
-    }
-
-    private void updateActualScore(){
-        TextView actualScore = getActualScore();
-
-        int updatedScore = Integer.parseInt(actualScore.getText().toString()) + 1;
-
-        this.actualScore.setText(updatedScore);
     }
 
     private boolean isGridFull(){
@@ -156,6 +149,10 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
             return true;
         }
         return false;
+    }
+
+    public void updateActualScore(int newValue){
+        actualScore.setText(newValue);
     }
 
     @Override

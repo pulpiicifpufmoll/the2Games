@@ -110,19 +110,13 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
         }
     }
 
-    //PENDIENTE CORREGIR BEST SCORE Y ACTUAL SCORE (HACE ENTRAR AL CATCH)
     private void mergeWithNextBox(Box nextBox){
         int nextValue = Integer.parseInt(this.value) * 2;
-
-        //nextBox.setText(String.valueOf(nextValue));
-        //nextBox.value = String.valueOf(nextValue);
         nextBox.setValueAndStyle(String.valueOf(nextValue));
-        String bestScoreValue = ((Activity2048) getContext()).getBestScore().getText().toString();
-        Log.d("test", "BEST SCORE: " + bestScoreValue);
-        if (nextValue > Integer.valueOf(bestScoreValue)){
-            TextView bestScore = ((Activity2048) getContext()).getBestScore();
-            bestScore.setText(bestScore.toString());
-        }
+
+        int actualScoreValue = Integer.valueOf(((Activity2048) getContext()).getActualScore().getText().toString());
+        actualScoreValue += nextValue;
+        ((Activity2048) getContext()).updateActualScore(actualScoreValue);
 
         this.deleteBox();
     }
