@@ -7,13 +7,22 @@ import androidx.gridlayout.widget.GridLayout;
 
 public class TokenSenku extends androidx.appcompat.widget.AppCompatImageButton {
 
-    public TokenSenku(Context context, GridLayout.LayoutParams params, int i, int j) {
+
+
+    public TokenSenku(Context context, int i, int j) {
         super(context);
 
-        this.setLayoutParams(params);
+        GridLayout.LayoutParams tokenParams = new GridLayout.LayoutParams();
+        tokenParams.rowSpec = GridLayout.spec(i);
+        tokenParams.columnSpec = GridLayout.spec(j);
+        this.setLayoutParams(tokenParams);
         this.setImageResource(R.drawable.senku_btn_on);
+
         this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.btnSenkuOnBackground)));
-        int idParsed = Integer.parseInt(String.valueOf(i) + String.valueOf(j));
+
+        String concatenatedRowColumn = String.valueOf(i) + String.valueOf(j);
+
+        int idParsed = Integer.parseInt(concatenatedRowColumn);
         this.setId(idParsed);
     }
 }

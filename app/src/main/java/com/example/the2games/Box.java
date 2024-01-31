@@ -35,9 +35,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
         this.setLayoutParams(defaultParams);
 
         setValueAndStyle(value);
-        //this.setBackgroundTintList(setValueAndStyle(value));
-        //String laMezlca = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-        //this.setText(laMezlca);
 
         String concatenatedRowColumn = targetRow + targetColumn;
         this.setId(Integer.parseInt(String.format("%02d", Integer.parseInt(concatenatedRowColumn))));

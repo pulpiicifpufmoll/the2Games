@@ -2,7 +2,9 @@ package com.example.the2games;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.content.ContextCompat;
 import androidx.gridlayout.widget.GridLayout;
 
 public class ActivitySenku extends AppCompatActivity{
@@ -31,7 +34,7 @@ public class ActivitySenku extends AppCompatActivity{
         GridLayout layout = findViewById(R.id.gridLayoutSenku);
         this.gridLayoutSenku = layout;
         setListenersBackgroundButtons(layout);
-        generarFichasIniciales(layout);
+        //generarFichasIniciales(layout);
     }
 
     @SuppressLint("ResourceType")
@@ -42,19 +45,16 @@ public class ActivitySenku extends AppCompatActivity{
                 if (checkEmptyPositionsLayout(i, j)){
                     continue;
                 }
-                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.rowSpec = GridLayout.spec(i);
-                params.columnSpec = GridLayout.spec(j);
-                TokenSenku nuevaFicha = new TokenSenku(this, params, i, j);
-                nuevaFicha.setOnClickListener(v -> selectToken(nuevaFicha.getId()));
+                TokenSenku nuevaFicha = new TokenSenku(this, i, j);
+                nuevaFicha.setOnClickListener(v -> selectToken(nuevaFicha));
                 layout.addView(nuevaFicha);
             }
         }
     }
 
-    private void selectToken(int tokenId){
-        Log.d("test", "Seleccionado: " + tokenId);
-        selectedTokenId = tokenId;
+    private void selectToken(TokenSenku token){
+        Log.d("test", "Seleccionado: " + token.getId());
+        selectedTokenId = token.getId();
     }
 
     private boolean checkEmptyPositionsLayout(int i, int j){
@@ -70,16 +70,19 @@ public class ActivitySenku extends AppCompatActivity{
     private void setListenersBackgroundButtons(GridLayout layout){
         for (int i = 0; i < layout.getChildCount(); i++) {
             ImageButton backgroundButton = (ImageButton) layout.getChildAt(i);
+            String resourceName = getResources().getResourceEntryName(backgroundButton.getId());
+            Log.d("test", resourceName);
+
             backgroundButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("test", resourceName);
                     if (selectedTokenId != -1){
+                        int idBackgroundPosition = getBackgroundIdPosition(backgroundButton);
                         GridLayout.LayoutParams paramsBack = (GridLayout.LayoutParams) backgroundButton.getLayoutParams();
                         TokenSenku senkuToken = findViewById(selectedTokenId);
                         GridLayout.LayoutParams paramsToken = (GridLayout.LayoutParams) senkuToken.getLayoutParams();
-                        paramsToken.rowSpec = paramsBack.rowSpec;
-                        paramsToken.columnSpec = paramsBack.columnSpec;
-                        senkuToken.setLayoutParams(paramsToken);
+                        moveToken(senkuToken, paramsBack, paramsToken, idBackgroundPosition);
                     }
                 }
             });
@@ -87,9 +90,22 @@ public class ActivitySenku extends AppCompatActivity{
         }
     }
 
+    private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId){
+        paramsToken.rowSpec = paramsBack.rowSpec;
+        paramsToken.columnSpec = paramsBack.columnSpec;
+        token.setId(newPositionId);
+        token.setLayoutParams(paramsToken);
+    }
+
     public void backSenkuToStartMenu(View view){
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
 
+    private int getBackgroundIdPosition(ImageButton layoutButton){
+        String id = String.valueOf(layoutButton.getId());
+        String idParsed = id.substring(id.length() - 2);
+        Log.d("test", idParsed);
+        return Integer.parseInt(idParsed);
+    }
 }

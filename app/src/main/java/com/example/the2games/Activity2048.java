@@ -3,6 +3,8 @@ package com.example.the2games;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -30,6 +32,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
     private Button playButton;
     private TextView actualScore;
     private TextView bestScore;
+    private ActivityTimer timer;
     private boolean isGameStarted;
 
     @Override
@@ -48,6 +51,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
             if (!isGameStarted){
                 generateBoxes();
                 isGameStarted = true;
+                loadTimer();
             }
         });
     }
@@ -55,6 +59,23 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
     public void back2048ToStartMenu(View view) {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
+    }
+
+    private void loadTimer(){
+        this.timer = new ActivityTimer();
+        Thread timerThread = new Thread(this.timer);
+        timerThread.start();
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                String timeToShow = timer.renturnTimeRemainingFormated();
+                TextView timerView = findViewById(R.id.timerView);
+                timerView.setText("TIEMPO: "+ timeToShow);
+                handler.postDelayed(this, 1000); // Actualizar cada segundo
+            }
+        });
     }
 
     private void generateBoxes() {
@@ -91,10 +112,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
-                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverDerecha();
-                                //updateActualScore();
-                                //Log.d("test", "ACTUAL SCORE: " + getActualScore().getText().toString());
                             }
                         }
                     }
@@ -104,7 +122,6 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
-                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverIzquierda();
                             }
                         }
@@ -117,7 +134,6 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
-                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverArriba();
                             }
                         }
@@ -128,7 +144,6 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
                             String idParsed = String.valueOf(j) +  String.valueOf(i);
                             Box boxToMoVE = findViewById(Integer.parseInt(idParsed));
                             if (boxToMoVE != null){
-                                Log.d("test", "DETECTED PARA MOVER: " + String.valueOf(boxToMoVE.getId()));
                                 boxToMoVE.moverAbajo();
                             }
                         }

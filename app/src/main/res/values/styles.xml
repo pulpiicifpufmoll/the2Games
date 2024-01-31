@@ -14,7 +14,19 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="box2">
-        <item name="android:backgroundTint">@color/box2</item>
+    <style name="Timer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/fontColor</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="TextScores">
+        <item name="android:textColor">@color/fontColor</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
 </resources>
