@@ -34,7 +34,7 @@ public class ActivitySenku extends AppCompatActivity{
         GridLayout layout = findViewById(R.id.gridLayoutSenku);
         this.gridLayoutSenku = layout;
         setListenersBackgroundButtons(layout);
-        //generarFichasIniciales(layout);
+        generarFichasIniciales(layout);
     }
 
     @SuppressLint("ResourceType")
@@ -58,6 +58,7 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private boolean checkEmptyPositionsLayout(int i, int j){
+
         if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 0 && j == 5) || (i == 0 && j == 6)
         || (i == 1 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == 5) || (i == 1 && j == 6)
         || (i == 5 && j == 0) || (i == 5 && j == 1) || (i == 5 && j == 5) || (i == 5 && j == 6)
@@ -70,24 +71,51 @@ public class ActivitySenku extends AppCompatActivity{
     private void setListenersBackgroundButtons(GridLayout layout){
         for (int i = 0; i < layout.getChildCount(); i++) {
             ImageButton backgroundButton = (ImageButton) layout.getChildAt(i);
-            String resourceName = getResources().getResourceEntryName(backgroundButton.getId());
-            Log.d("test", resourceName);
-
             backgroundButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("test", resourceName);
+                    Log.d("test", String.valueOf(getBackgroundIdPosition((ImageButton) v)));
                     if (selectedTokenId != -1){
                         int idBackgroundPosition = getBackgroundIdPosition(backgroundButton);
-                        GridLayout.LayoutParams paramsBack = (GridLayout.LayoutParams) backgroundButton.getLayoutParams();
-                        TokenSenku senkuToken = findViewById(selectedTokenId);
-                        GridLayout.LayoutParams paramsToken = (GridLayout.LayoutParams) senkuToken.getLayoutParams();
-                        moveToken(senkuToken, paramsBack, paramsToken, idBackgroundPosition);
+                        TokenSenku senkuTokenToMove = findViewById(selectedTokenId);
+                        if (canTokenMove(idBackgroundPosition, selectedTokenId)){
+                            //obtenemos params del imgBtnBack pulsado ya que necesitamos su fila y columna para el token
+                            GridLayout.LayoutParams paramsBack = (GridLayout.LayoutParams) backgroundButton.getLayoutParams();
+                            GridLayout.LayoutParams paramsToken = (GridLayout.LayoutParams) senkuTokenToMove.getLayoutParams();
+
+                            moveToken(senkuTokenToMove, paramsBack, paramsToken, idBackgroundPosition);
+                        }
+                        selectedTokenId = -1;
                     }
                 }
             });
 
         }
+    }
+
+    private boolean canTokenMove(int idBackgroundPosition, int selectedTokenId) {
+        int rowBackground;
+        int columnBackground;
+
+        if (String.valueOf(idBackgroundPosition).length() < 2){
+            rowBackground = 0;
+        } else {
+            rowBackground = String.valueOf(idBackgroundPosition).charAt(0);
+        }
+
+        columnBackground = String.valueOf(idBackgroundPosition).charAt(1);
+
+        //con esto comprobamos si es la primera fila, ya que los Id son de un solo dígito
+        if (String.valueOf(selectedTokenId).length() == 1){
+
+            if (rowBackground > 2 || (columnBackground < selectedTokenId - 2 || columnBackground > selectedTokenId + 2)){
+                return false;
+            }
+        } else {
+
+        }
+
+        return true;
     }
 
     private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId){
@@ -103,9 +131,8 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private int getBackgroundIdPosition(ImageButton layoutButton){
-        String id = String.valueOf(layoutButton.getId());
-        String idParsed = id.substring(id.length() - 2);
-        Log.d("test", idParsed);
+        String resourceName = getResources().getResourceEntryName(layoutButton.getId());
+        String idParsed = resourceName.substring(resourceName.length() - 2);
         return Integer.parseInt(idParsed);
     }
 }
