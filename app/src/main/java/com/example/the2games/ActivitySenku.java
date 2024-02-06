@@ -5,60 +5,96 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.gridlayout.widget.GridLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ActivitySenku extends AppCompatActivity{
 
     private GridLayout gridLayoutSenku;
-    private Resources resources;
-    private String packageName;
     private int selectedTokenId = -1;
+    private List<TokenSenku> actualTokens;
+    private Button restartBtn;
+    private Button backToMenuBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.resources = getResources();
-        this.packageName = getPackageName();
+        this.actualTokens = new ArrayList<>();
+        this.restartBtn = findViewById(R.id.restartBtn);
+        this.restartBtn.setOnClickListener(this::restartActivity);
+        this.backToMenuBtn = findViewById(R.id.backToMenuBtn);
+        this.backToMenuBtn.setOnClickListener(this::backSenkuToStartMenu);
         setContentView(R.layout.activity_senku);
         GridLayout layout = findViewById(R.id.gridLayoutSenku);
         this.gridLayoutSenku = layout;
         setListenersBackgroundButtons(layout);
-        generarFichasIniciales(layout);
+        generateInitalTokens(layout);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @SuppressLint("ResourceType")
-    private void generarFichasIniciales(GridLayout layout) {
-
+    private void generateInitalTokens(GridLayout layout) {
         for (int i = 0; i < layout.getRowCount(); i++){
             for (int j = 0; j < layout.getColumnCount(); j++) {
                 if (checkEmptyPositionsLayout(i, j)){
                     continue;
                 }
-                TokenSenku nuevaFicha = new TokenSenku(this, i, j);
-                nuevaFicha.setOnClickListener(v -> selectToken(nuevaFicha));
-                layout.addView(nuevaFicha);
+                TokenSenku newToken = new TokenSenku(this, i, j);
+                newToken.setOnClickListener(v -> selectToken(newToken));
+                layout.addView(newToken);
+                this.actualTokens.add(newToken);
             }
         }
     }
 
     private void selectToken(TokenSenku token){
-        Log.d("test", "Seleccionado: " + token.getId());
         selectedTokenId = token.getId();
     }
 
-    private boolean checkEmptyPositionsLayout(int i, int j){
+    public boolean checkEmptyPositionsLayout(int i, int j){
 
-        if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 0 && j == 5) || (i == 0 && j == 6)
-        || (i == 1 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == 5) || (i == 1 && j == 6)
-        || (i == 5 && j == 0) || (i == 5 && j == 1) || (i == 5 && j == 5) || (i == 5 && j == 6)
-        || (i == 6 && j == 0) || (i == 6 && j == 1) || (i == 6 && j == 5) || (i == 6 && j == 6) || (i == 3 && j == 3)){
+        if (i == 0 && (j < 2 || j > 4)
+        || i == 1 && (j < 2 || j > 4)
+        || i == 5 && (j < 2 || j > 4)
+        || i == 6 && (j < 2 || j > 4)
+        || i == 3 && j == 3){
             return true;
         }
+
+        //if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 0 && j == 5) || (i == 0 && j == 6)
+        //|| (i == 1 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == 5) || (i == 1 && j == 6)
+        //|| (i == 5 && j == 0) || (i == 5 && j == 1) || (i == 5 && j == 5) || (i == 5 && j == 6)
+        //|| (i == 6 && j == 0) || (i == 6 && j == 1) || (i == 6 && j == 5) || (i == 6 && j == 6) || (i == 3 && j == 3)){
+        //   return true;
+        // }
         return false;
+
     }
 
     private void setListenersBackgroundButtons(GridLayout layout){
@@ -67,16 +103,16 @@ public class ActivitySenku extends AppCompatActivity{
             backgroundButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("test", String.valueOf(getBackgroundIdPosition((ImageButton) v)));
                     if (selectedTokenId != -1){
                         int idBackgroundPosition = getBackgroundIdPosition(backgroundButton);
                         TokenSenku senkuTokenToMove = findViewById(selectedTokenId);
-                        if (senkuTokenToMove.canMove(idBackgroundPosition)){
-                            //obtenemos params del imgBtnBack pulsado ya que necesitamos su fila y columna para el token
+                        TokenSenku senkuTokenToRemove = senkuTokenToMove.canMove(idBackgroundPosition);
+                        if (senkuTokenToRemove != null){
+                            //obtenemos params del imgBtnBack pulsado ya que necesitamos su fila y columna para el update de posición del token
                             GridLayout.LayoutParams paramsBack = (GridLayout.LayoutParams) backgroundButton.getLayoutParams();
                             GridLayout.LayoutParams paramsToken = (GridLayout.LayoutParams) senkuTokenToMove.getLayoutParams();
 
-                            moveToken(senkuTokenToMove, paramsBack, paramsToken, idBackgroundPosition);
+                            moveToken(senkuTokenToMove, paramsBack, paramsToken, idBackgroundPosition, senkuTokenToRemove);
                         }
                         selectedTokenId = -1;
                     }
@@ -86,17 +122,22 @@ public class ActivitySenku extends AppCompatActivity{
         }
     }
 
+    public void backSenkuToStartMenu(View view){
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
 
-    private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId){
+    private void removeToken(TokenSenku token){
+        this.actualTokens.remove(token);
+        this.gridLayoutSenku.removeView(token);
+    }
+
+    private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId, TokenSenku tokenToRemove){
         paramsToken.rowSpec = paramsBack.rowSpec;
         paramsToken.columnSpec = paramsBack.columnSpec;
         token.setId(newPositionId);
         token.setLayoutParams(paramsToken);
-    }
-
-    public void backSenkuToStartMenu(View view){
-        Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
+        removeToken(tokenToRemove);
     }
 
     private int getBackgroundIdPosition(ImageButton layoutButton){
@@ -104,4 +145,21 @@ public class ActivitySenku extends AppCompatActivity{
         String idParsed = resourceName.substring(resourceName.length() - 2);
         return Integer.parseInt(idParsed);
     }
+
+    public void restartActivity(View view){
+        for (int i = 0; i < this.gridLayoutSenku.getRowCount(); i++){
+            for (int j = 0; j < this.gridLayoutSenku.getColumnCount(); j++) {
+                if (checkEmptyPositionsLayout(i, j)){
+                    continue;
+                }
+                TokenSenku token = new TokenSenku(this, i, j);
+                if (token != null){
+                    removeToken(token);
+                }
+            }
+        }
+        setListenersBackgroundButtons(this.gridLayoutSenku);
+        generateInitalTokens(this.gridLayoutSenku);
+    }
+
 }

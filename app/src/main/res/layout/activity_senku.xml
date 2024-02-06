@@ -274,15 +274,16 @@
             <Button
                     android:text="@string/backBtnText"
                     android:layout_marginRight="20dp"
-                    android:onClick="backSenkuToStartMenu"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button17"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/backToMenuBtn"
                     android:backgroundTint="@color/fontColor"/>
             <Button
                     android:text="@string/restart"
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button18"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/restartBtn"
                     android:backgroundTint="@color/fontColor"/>
         </LinearLayout>
     </LinearLayout>

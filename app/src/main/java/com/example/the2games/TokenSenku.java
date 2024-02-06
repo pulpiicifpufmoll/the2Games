@@ -26,7 +26,7 @@ public class TokenSenku extends androidx.appcompat.widget.AppCompatImageButton {
         this.setId(idParsed);
     }
 
-    public boolean canMove(int idBackgroundPosition) {
+    public TokenSenku canMove(int idBackgroundPosition) {
         int tokenIdToMove = this.getId();
 
         int rowBackground;
@@ -51,42 +51,72 @@ public class TokenSenku extends androidx.appcompat.widget.AppCompatImageButton {
 
         } else {
             rowTokenPositin = Character.getNumericValue(String.valueOf(tokenIdToMove).charAt(0));
-            columnTokenPosition = Character.getNumericValue(String.valueOf(tokenIdToMove).charAt(0));
+            columnTokenPosition = Character.getNumericValue(String.valueOf(tokenIdToMove).charAt(1));
         }
 
-        if (rowBackground > rowTokenPositin + 2
-                || rowBackground < rowTokenPositin - 2
-                || columnBackground > columnTokenPosition + 2
-                || columnBackground < columnTokenPosition - 2)
+        String availableBackgroundPositionClicked = checkClickedBackground(rowBackground, rowTokenPositin, columnBackground, columnTokenPosition);
+
+        if (availableBackgroundPositionClicked.equals("INVALID"))
         {
-            return false;
+            return null;
         }
 
-        if (!isTokenNextTo(rowTokenPositin, columnTokenPosition)) {
-            return false;
-        }
+        TokenSenku tokenNextTo = getTokenNextTo(rowTokenPositin, columnTokenPosition, availableBackgroundPositionClicked);
 
-        return true;
+        return tokenNextTo;
     }
 
-    private boolean isTokenNextTo(int rowTokenPositin, int columnTokenPosition) {
-        String idTokenTop = String.valueOf(rowTokenPositin - 1) + String.valueOf(columnTokenPosition);
-        String idTokenBottom = String.valueOf(rowTokenPositin + 1) + String.valueOf(columnTokenPosition);
-        String idTokenLeft = String.valueOf(rowTokenPositin) + String.valueOf(columnTokenPosition - 1);
-        String idTokenRight = String.valueOf(rowTokenPositin) + String.valueOf(columnTokenPosition + 1);
+    private String checkClickedBackground(int rowBackground, int rowTokenPositin, int columnBackground, int columnTokenPosition){
 
-        if (((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenTop)) != null){
-            return true;
+       if (rowBackground == rowTokenPositin + 1
+                || rowBackground == rowTokenPositin - 1
+                || columnBackground == columnTokenPosition + 1
+                || columnBackground == columnTokenPosition - 1){
+           return "INVALID";
         }
-        if (((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenBottom)) != null){
-            return true;
+
+       if (rowBackground != rowTokenPositin && columnBackground == columnTokenPosition){
+           //Vertical Click
+           if (rowBackground == rowTokenPositin + 2){
+               return "BOTTOM";
+           } else if (rowBackground == rowTokenPositin - 2){
+               return "TOP";
+           }
+       } else if (columnBackground != columnTokenPosition && rowBackground == rowTokenPositin) {
+           //Horizontal Click
+           if (columnBackground == columnTokenPosition + 2){
+               return "RIGHT";
+           } else if (columnBackground == columnTokenPosition - 2){
+               return "LEFT";
+           }
+       }
+        return "INVALID";
+    }
+
+    private TokenSenku getTokenNextTo(int rowTokenPosition, int columnTokenPosition, String position) {
+        String idTokenTop = String.valueOf(rowTokenPosition - 1) + String.valueOf(columnTokenPosition);
+        String idTokenBottom = String.valueOf(rowTokenPosition + 1) + String.valueOf(columnTokenPosition);
+        String idTokenLeft = String.valueOf(rowTokenPosition) + String.valueOf(columnTokenPosition - 1);
+        String idTokenRight = String.valueOf(rowTokenPosition) + String.valueOf(columnTokenPosition + 1);
+
+        TokenSenku tokenNextTo = null;
+
+        switch (position){
+            case "TOP":
+                tokenNextTo = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenTop));
+                break;
+            case "BOTTOM":
+                tokenNextTo = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenBottom));
+                break;
+            case "LEFT":
+                tokenNextTo = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenLeft));
+                break;
+            case "RIGHT":
+                tokenNextTo = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenRight));
+                break;
         }
-        if (((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenRight)) != null){
-            return true;
-        }
-        if (((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenLeft)) != null){
-            return true;
-        }
-        return false;
+
+        return tokenNextTo;
+
     }
 }

@@ -25,9 +25,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
     private final int NUM_FILAS = 4;
     private final int NUM_COLUMNAS = 4;
     private final Random rand = new Random(System.currentTimeMillis());
-    private Resources resources;
     private GestureDetector myGestureListener;
-    private String packageName;
     private GridLayout gridLayout2048;
     private Button playButton;
     private TextView actualScore;
@@ -40,8 +38,6 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2048);
         this.myGestureListener = new GestureDetector(this, this);
-        this.resources = getResources();
-        this.packageName = getPackageName();
         this.gridLayout2048 = findViewById(R.id.gridLayout2048);
         this.playButton = findViewById(R.id.newGameBtn);
         this.bestScore = findViewById(R.id.best);
