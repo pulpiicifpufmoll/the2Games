@@ -2,19 +2,12 @@ package com.example.the2games;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.core.content.ContextCompat;
 import androidx.gridlayout.widget.GridLayout;
 
 public class ActivitySenku extends AppCompatActivity{
@@ -78,7 +71,7 @@ public class ActivitySenku extends AppCompatActivity{
                     if (selectedTokenId != -1){
                         int idBackgroundPosition = getBackgroundIdPosition(backgroundButton);
                         TokenSenku senkuTokenToMove = findViewById(selectedTokenId);
-                        if (canTokenMove(idBackgroundPosition, selectedTokenId)){
+                        if (senkuTokenToMove.canMove(idBackgroundPosition)){
                             //obtenemos params del imgBtnBack pulsado ya que necesitamos su fila y columna para el token
                             GridLayout.LayoutParams paramsBack = (GridLayout.LayoutParams) backgroundButton.getLayoutParams();
                             GridLayout.LayoutParams paramsToken = (GridLayout.LayoutParams) senkuTokenToMove.getLayoutParams();
@@ -93,30 +86,6 @@ public class ActivitySenku extends AppCompatActivity{
         }
     }
 
-    private boolean canTokenMove(int idBackgroundPosition, int selectedTokenId) {
-        int rowBackground;
-        int columnBackground;
-
-        if (String.valueOf(idBackgroundPosition).length() < 2){
-            rowBackground = 0;
-        } else {
-            rowBackground = String.valueOf(idBackgroundPosition).charAt(0);
-        }
-
-        columnBackground = String.valueOf(idBackgroundPosition).charAt(1);
-
-        //con esto comprobamos si es la primera fila, ya que los Id son de un solo dígito
-        if (String.valueOf(selectedTokenId).length() == 1){
-
-            if (rowBackground > 2 || (columnBackground < selectedTokenId - 2 || columnBackground > selectedTokenId + 2)){
-                return false;
-            }
-        } else {
-
-        }
-
-        return true;
-    }
 
     private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId){
         paramsToken.rowSpec = paramsBack.rowSpec;

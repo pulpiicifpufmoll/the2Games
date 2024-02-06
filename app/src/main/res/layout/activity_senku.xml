@@ -11,6 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="335dp"
             android:background="@color/panelBackground"
+            android:paddingRight="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="30dp" android:id="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
@@ -288,7 +289,7 @@
     <TextView
             android:textAlignment="center"
             android:text="@string/senku"
-            android:textSize="30dp"
+            android:textSize="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView7"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
