@@ -66,27 +66,47 @@ public class TokenSenku extends androidx.appcompat.widget.AppCompatImageButton {
         return tokenNextTo;
     }
 
-    private String checkClickedBackground(int rowBackground, int rowTokenPositin, int columnBackground, int columnTokenPosition){
+    private String checkClickedBackground(int rowBackground, int rowTokenPosition, int columnBackground, int columnTokenPosition){
 
-       if (rowBackground == rowTokenPositin + 1
-                || rowBackground == rowTokenPositin - 1
+       if (rowBackground == rowTokenPosition + 1
+                || rowBackground == rowTokenPosition - 1
                 || columnBackground == columnTokenPosition + 1
                 || columnBackground == columnTokenPosition - 1){
            return "INVALID";
         }
 
-       if (rowBackground != rowTokenPositin && columnBackground == columnTokenPosition){
+       if (rowBackground != rowTokenPosition && columnBackground == columnTokenPosition){
            //Vertical Click
-           if (rowBackground == rowTokenPositin + 2){
+           if (rowBackground == rowTokenPosition + 2){
+               String idTokenBottom = String.valueOf(Math.min(rowTokenPosition + 2, 6)) + String.valueOf(columnTokenPosition);
+               TokenSenku token2BottomExists = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenBottom));
+               if (token2BottomExists != null){
+                   return "INVALID";
+               }
                return "BOTTOM";
-           } else if (rowBackground == rowTokenPositin - 2){
+           } else if (rowBackground == rowTokenPosition - 2){
+               String idTokenTop = String.valueOf(Math.max(rowTokenPosition - 2, 0)) + String.valueOf(columnTokenPosition);
+               TokenSenku token2TopExists = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenTop));
+               if (token2TopExists != null){
+                   return "INVALID";
+               }
                return "TOP";
            }
-       } else if (columnBackground != columnTokenPosition && rowBackground == rowTokenPositin) {
+       } else if (columnBackground != columnTokenPosition && rowBackground == rowTokenPosition) {
            //Horizontal Click
            if (columnBackground == columnTokenPosition + 2){
+               String idTokenRight = String.valueOf(rowTokenPosition) + String.valueOf(Math.min(columnTokenPosition + 2, 6));
+               TokenSenku token2RightExists = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenRight));
+               if (token2RightExists != null){
+                   return "INVALID";
+               }
                return "RIGHT";
            } else if (columnBackground == columnTokenPosition - 2){
+               String idTokenLeft = String.valueOf(rowTokenPosition) + String.valueOf(Math.max(columnTokenPosition - 2, 0));
+               TokenSenku token2LeftExists = ((ActivitySenku) getContext()).findViewById(Integer.parseInt(idTokenLeft));
+               if (token2LeftExists != null){
+                   return "INVALID";
+               }
                return "LEFT";
            }
        }

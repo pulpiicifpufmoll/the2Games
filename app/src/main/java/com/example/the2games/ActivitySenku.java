@@ -19,43 +19,27 @@ public class ActivitySenku extends AppCompatActivity{
     private GridLayout gridLayoutSenku;
     private int selectedTokenId = -1;
     private List<TokenSenku> actualTokens;
-    private Button restartBtn;
+    private Button restartButton;
     private Button backToMenuBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.actualTokens = new ArrayList<>();
-        this.restartBtn = findViewById(R.id.restartBtn);
-        this.restartBtn.setOnClickListener(this::restartActivity);
-        this.backToMenuBtn = findViewById(R.id.backToMenuBtn);
-        this.backToMenuBtn.setOnClickListener(this::backSenkuToStartMenu);
         setContentView(R.layout.activity_senku);
+        this.actualTokens = new ArrayList<>();
+        this.restartButton = findViewById(R.id.restartBtn);
+        this.backToMenuBtn = findViewById(R.id.backToMenuBtn);
         GridLayout layout = findViewById(R.id.gridLayoutSenku);
         this.gridLayoutSenku = layout;
+        addListenersToButtons();
         setListenersBackgroundButtons(layout);
         generateInitalTokens(layout);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void addListenersToButtons() {
+        this.restartButton.setOnClickListener(this::restartActivity);
+        this.backToMenuBtn.setOnClickListener(this::backSenkuToStartMenu);
     }
 
     @SuppressLint("ResourceType")
@@ -100,6 +84,7 @@ public class ActivitySenku extends AppCompatActivity{
     private void setListenersBackgroundButtons(GridLayout layout){
         for (int i = 0; i < layout.getChildCount(); i++) {
             ImageButton backgroundButton = (ImageButton) layout.getChildAt(i);
+
             backgroundButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -146,13 +131,48 @@ public class ActivitySenku extends AppCompatActivity{
         return Integer.parseInt(idParsed);
     }
 
+    private boolean checkIfGameEnds(){
+        boolean gameCanEnd = false;
+
+        for (int i = 0; i < this.gridLayoutSenku.getRowCount(); i++) {
+            for (int j = 0; j < this.gridLayoutSenku.getColumnCount(); j++) {
+                if (checkEmptyPositionsLayout(i, j)) {
+                    continue;
+                }
+                String idParsed = String.valueOf(i) + String.valueOf(j);
+                TokenSenku targetToken = findViewById(Integer.parseInt(idParsed));
+                if (targetToken != null){
+                    gameCanEnd = areDirectionsAvailableForTokenMovement(i, j);
+                }
+
+
+            }
+        }
+
+        return gameCanEnd;
+    }
+
+    private boolean areDirectionsAvailableForTokenMovement(int i, int j){
+        //TODO check en cada posición si tiene ficha al lado y si dos posiciones al lado está libre
+            // case "TOP":
+
+            // case "BOTTOM":
+
+            // case "LEFT":
+
+            //case "RIGHT":
+
+        return false;
+    }
+
     public void restartActivity(View view){
         for (int i = 0; i < this.gridLayoutSenku.getRowCount(); i++){
             for (int j = 0; j < this.gridLayoutSenku.getColumnCount(); j++) {
                 if (checkEmptyPositionsLayout(i, j)){
                     continue;
                 }
-                TokenSenku token = new TokenSenku(this, i, j);
+                String idParsed = String.valueOf(i) + String.valueOf(j);
+                TokenSenku token = findViewById(Integer.parseInt(idParsed));
                 if (token != null){
                     removeToken(token);
                 }
@@ -161,5 +181,4 @@ public class ActivitySenku extends AppCompatActivity{
         setListenersBackgroundButtons(this.gridLayoutSenku);
         generateInitalTokens(this.gridLayoutSenku);
     }
-
 }
