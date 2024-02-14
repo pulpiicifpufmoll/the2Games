@@ -2,7 +2,6 @@ package com.example.the2games;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -71,12 +70,6 @@ public class ActivitySenku extends AppCompatActivity{
             return true;
         }
 
-        //if ((i == 0 && j == 0) || (i == 0 && j == 1) || (i == 0 && j == 5) || (i == 0 && j == 6)
-        //|| (i == 1 && j == 0) || (i == 1 && j == 1) || (i == 1 && j == 5) || (i == 1 && j == 6)
-        //|| (i == 5 && j == 0) || (i == 5 && j == 1) || (i == 5 && j == 5) || (i == 5 && j == 6)
-        //|| (i == 6 && j == 0) || (i == 6 && j == 1) || (i == 6 && j == 5) || (i == 6 && j == 6) || (i == 3 && j == 3)){
-        //   return true;
-        // }
         return false;
 
     }
@@ -100,6 +93,7 @@ public class ActivitySenku extends AppCompatActivity{
                             moveToken(senkuTokenToMove, paramsBack, paramsToken, idBackgroundPosition, senkuTokenToRemove);
                         }
                         selectedTokenId = -1;
+                        endGame(checkIfIsDefeat(), checkIfIsVictory());
                     }
                 }
             });
@@ -131,8 +125,23 @@ public class ActivitySenku extends AppCompatActivity{
         return Integer.parseInt(idParsed);
     }
 
-    private boolean checkIfGameEnds(){
-        boolean gameCanEnd = false;
+    private void endGame(boolean isDefeat, boolean isVictory){
+        if ((isVictory && isDefeat) == false){
+            return;
+        } else if (isVictory && !isDefeat){
+            //TODO dialog de victoria
+        } else if (isDefeat && !isVictory){
+            Log.d("test", "Has perdidooooooo");
+            //TODO dialog de derrota
+        }
+    }
+
+    private boolean checkIfIsVictory(){
+        return this.actualTokens.isEmpty();
+    }
+
+    private boolean checkIfIsDefeat(){
+        boolean isDefeat = false;
 
         for (int i = 0; i < this.gridLayoutSenku.getRowCount(); i++) {
             for (int j = 0; j < this.gridLayoutSenku.getColumnCount(); j++) {
@@ -142,26 +151,72 @@ public class ActivitySenku extends AppCompatActivity{
                 String idParsed = String.valueOf(i) + String.valueOf(j);
                 TokenSenku targetToken = findViewById(Integer.parseInt(idParsed));
                 if (targetToken != null){
-                    gameCanEnd = areDirectionsAvailableForTokenMovement(i, j);
+                    isDefeat = areDirectionsAvailableForTokenMovement(i, j, "TOP");
+                    if (!isDefeat){
+                        isDefeat = areDirectionsAvailableForTokenMovement(i, j, "BOTTOM");
+                    } else if (!isDefeat) {
+                        isDefeat = areDirectionsAvailableForTokenMovement(i, j, "LEFT");
+                    } else if (!isDefeat) {
+                        isDefeat = areDirectionsAvailableForTokenMovement(i, j, "RIGHT");
+                    }
                 }
-
-
             }
         }
-
-        return gameCanEnd;
+        return isDefeat;
     }
 
-    private boolean areDirectionsAvailableForTokenMovement(int i, int j){
-        //TODO check en cada posición si tiene ficha al lado y si dos posiciones al lado está libre
-            // case "TOP":
+    private boolean areDirectionsAvailableForTokenMovement(int i, int j, String dir){
+        String idParsed;
+        TokenSenku tokenNextTo;
+        TokenSenku tokenNextTo2Positions;
 
-            // case "BOTTOM":
+        switch (dir){
+            case "TOP":
+                idParsed = String.valueOf(Math.max(i - 1, 0)) + String.valueOf(j);
+                tokenNextTo = findViewById(Integer.parseInt(idParsed));
 
-            // case "LEFT":
+                idParsed = String.valueOf(Math.max(i - 2, 0)) + String.valueOf(j);
+                tokenNextTo2Positions = findViewById(Integer.parseInt(idParsed));
 
-            //case "RIGHT":
+                if (tokenNextTo != null && tokenNextTo2Positions == null){
+                    return true;
+                }
+                break;
 
+            case "BOTTOM":
+                idParsed = String.valueOf(Math.min(i + 1, 6)) + String.valueOf(j);
+                tokenNextTo = findViewById(Integer.parseInt(idParsed));
+
+                idParsed = String.valueOf(Math.min(i + 2, 6)) + String.valueOf(j);
+                tokenNextTo2Positions = findViewById(Integer.parseInt(idParsed));
+
+                if (tokenNextTo != null && tokenNextTo2Positions == null){
+                    return true;
+                }
+                break;
+            case "LEFT":
+                idParsed = String.valueOf(i) + String.valueOf(Math.max(j - 1, 0));
+                tokenNextTo = findViewById(Integer.parseInt(idParsed));
+
+                idParsed = String.valueOf(i) + String.valueOf(Math.max(i - 2, 0));
+                tokenNextTo2Positions = findViewById(Integer.parseInt(idParsed));
+
+                if (tokenNextTo != null && tokenNextTo2Positions == null){
+                    return true;
+                }
+                break;
+            case "RIGHT":
+                idParsed = String.valueOf(i) + String.valueOf(Math.min(j + 1, 6));
+                tokenNextTo = findViewById(Integer.parseInt(idParsed));
+
+                idParsed = String.valueOf(i) + String.valueOf(Math.min(j + 2, 6));
+                tokenNextTo2Positions = findViewById(Integer.parseInt(idParsed));
+
+                if (tokenNextTo != null && tokenNextTo2Positions == null){
+                    return true;
+                }
+                break;
+        }
         return false;
     }
 
