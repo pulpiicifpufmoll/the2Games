@@ -126,11 +126,9 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private void endGame(boolean isDefeat, boolean isVictory){
-        if ((isVictory && isDefeat) == false){
-            return;
-        } else if (isVictory && !isDefeat){
+        if (isVictory){
             //TODO dialog de victoria
-        } else if (isDefeat && !isVictory){
+        } else if (isDefeat){
             Log.d("test", "Has perdidooooooo");
             //TODO dialog de derrota
         }
@@ -141,7 +139,7 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private boolean checkIfIsDefeat(){
-        boolean isDefeat = false;
+        boolean areMovesAvailables = false;
 
         for (int i = 0; i < this.gridLayoutSenku.getRowCount(); i++) {
             for (int j = 0; j < this.gridLayoutSenku.getColumnCount(); j++) {
@@ -151,18 +149,24 @@ public class ActivitySenku extends AppCompatActivity{
                 String idParsed = String.valueOf(i) + String.valueOf(j);
                 TokenSenku targetToken = findViewById(Integer.parseInt(idParsed));
                 if (targetToken != null){
-                    isDefeat = areDirectionsAvailableForTokenMovement(i, j, "TOP");
-                    if (!isDefeat){
-                        isDefeat = areDirectionsAvailableForTokenMovement(i, j, "BOTTOM");
-                    } else if (!isDefeat) {
-                        isDefeat = areDirectionsAvailableForTokenMovement(i, j, "LEFT");
-                    } else if (!isDefeat) {
-                        isDefeat = areDirectionsAvailableForTokenMovement(i, j, "RIGHT");
+                    areMovesAvailables = areDirectionsAvailableForTokenMovement(i, j, "TOP");
+
+                    if (!areMovesAvailables) {
+                        areMovesAvailables  = areDirectionsAvailableForTokenMovement(i, j, "BOTTOM");
                     }
+                    if (!areMovesAvailables) {
+                        areMovesAvailables  = areDirectionsAvailableForTokenMovement(i, j, "LEFT");
+                    }
+                    if (!areMovesAvailables) {
+                        areMovesAvailables  = areDirectionsAvailableForTokenMovement(i, j, "RIGHT");
+                    }
+                }
+                if (areMovesAvailables){
+                    return false;
                 }
             }
         }
-        return isDefeat;
+        return true;
     }
 
     private boolean areDirectionsAvailableForTokenMovement(int i, int j, String dir){
