@@ -16,10 +16,15 @@ import java.util.List;
 public class ActivitySenku extends AppCompatActivity{
 
     private GridLayout gridLayoutSenku;
-    private int selectedTokenId = -1;
+    private GridLayout previousGridLayoutSenku;
+
     private List<TokenSenku> actualTokens;
-    private Button restartButton;
+    private List<TokenSenku> previousTokens;
+
+    private int selectedTokenId = -1;
+    private Button restartBtn;
     private Button backToMenuBtn;
+    private ImageButton previousMovementBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -27,8 +32,9 @@ public class ActivitySenku extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_senku);
         this.actualTokens = new ArrayList<>();
-        this.restartButton = findViewById(R.id.restartBtn);
+        this.restartBtn = findViewById(R.id.restartBtn);
         this.backToMenuBtn = findViewById(R.id.backToMenuBtn);
+        this.previousMovementBtn = findViewById(R.id.previousMove);
         GridLayout layout = findViewById(R.id.gridLayoutSenku);
         this.gridLayoutSenku = layout;
         addListenersToButtons();
@@ -37,8 +43,9 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private void addListenersToButtons() {
-        this.restartButton.setOnClickListener(this::restartActivity);
+        this.restartBtn.setOnClickListener(this::restartActivity);
         this.backToMenuBtn.setOnClickListener(this::backSenkuToStartMenu);
+        this.previousMovementBtn.setOnClickListener(this::previousMovement);
     }
 
     @SuppressLint("ResourceType")
@@ -114,9 +121,13 @@ public class ActivitySenku extends AppCompatActivity{
     private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId, TokenSenku tokenToRemove){
         paramsToken.rowSpec = paramsBack.rowSpec;
         paramsToken.columnSpec = paramsBack.columnSpec;
+
         token.setId(newPositionId);
         token.setLayoutParams(paramsToken);
         removeToken(tokenToRemove);
+
+        setPreviousTokens(getActualTokens());
+        setPreviousGridLayoutSenku(getGridLayoutSenku());
     }
 
     private int getBackgroundIdPosition(ImageButton layoutButton){
@@ -239,5 +250,44 @@ public class ActivitySenku extends AppCompatActivity{
         }
         setListenersBackgroundButtons(this.gridLayoutSenku);
         generateInitalTokens(this.gridLayoutSenku);
+    }
+
+    public void previousMovement(View view){
+        //setGridLayoutSenku(getPreviousGridLayoutSenku());
+        setActualTokens(getPreviousTokens());
+        setContentView(getPreviousGridLayoutSenku());
+    }
+
+
+    public GridLayout getGridLayoutSenku() {
+        return gridLayoutSenku;
+    }
+
+    public void setGridLayoutSenku(GridLayout gridLayoutSenku) {
+        this.gridLayoutSenku = gridLayoutSenku;
+    }
+
+    public GridLayout getPreviousGridLayoutSenku() {
+        return previousGridLayoutSenku;
+    }
+
+    public void setPreviousGridLayoutSenku(GridLayout previousGridLayoutSenku) {
+        this.previousGridLayoutSenku = previousGridLayoutSenku;
+    }
+
+    public List<TokenSenku> getActualTokens() {
+        return actualTokens;
+    }
+
+    public void setActualTokens(List<TokenSenku> actualTokens) {
+        this.actualTokens = actualTokens;
+    }
+
+    public List<TokenSenku> getPreviousTokens() {
+        return previousTokens;
+    }
+
+    public void setPreviousTokens(List<TokenSenku> previousTokens) {
+        this.previousTokens = previousTokens;
     }
 }

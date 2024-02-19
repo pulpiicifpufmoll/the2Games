@@ -261,18 +261,26 @@
             app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-                android:text="Movements:"
-                android:textColor="@color/fontColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="24dp" android:layout_marginStart="32dp"/>
-        <TextView
                 android:text="Time:"
+                android:id="@+id/timeView"
+                style="@style/menuSenku"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="24dp"/>
+        <TextView
+                android:text="Movements:"
+                android:id="@+id/movementView"
+                style="@style/menuSenku"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="136dp" android:layout_marginTop="20dp"/>
+        <ImageButton
+                android:id="@+id/previousMove"
+                android:backgroundTint="#f5e4ce"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView5"
+                android:layout_height="wrap_content" app:srcCompat="@drawable/previous_move"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="24dp" android:layout_marginEnd="68dp"/>
+                android:layout_marginTop="8dp" android:layout_marginEnd="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
             android:layout_width="match_parent"
