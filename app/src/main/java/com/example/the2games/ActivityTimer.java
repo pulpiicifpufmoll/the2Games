@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 public class ActivityTimer implements Runnable{
 
-    private int TIEMPO_EN_MILISEGUNDOS = 1 * 10 * 1000; // 10 minutos en milisegundos
+    private int TIEMPO_EN_MILISEGUNDOS = 1 * 30 * 1000; // 10 minutos en milisegundos
     private Timer timer;
     private long startTime;
 
@@ -25,11 +25,6 @@ public class ActivityTimer implements Runnable{
     private class TemporizadorTask extends TimerTask {
         @Override
         public void run() {
-            //if (activitySenku != null){
-            //    activitySenku.showDefeatDialog();
-           // } else {
-           //     activity2048.showDefeatDialog();
-           // }
             timer.cancel(); // Cancelar el temporizador después de ejecutar la tarea
         }
     }

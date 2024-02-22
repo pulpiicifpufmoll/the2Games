@@ -31,6 +31,7 @@ public class ActivitySenku extends AppCompatActivity{
     private TextView timerView;
     private ActivityTimer timer;
     private boolean isGameStarted;
+    boolean loadingTimer;
 
     private GridLayout.LayoutParams paramsFromLastTokenMoved;
 
@@ -79,6 +80,7 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private void loadTimer(){
+        this.loadingTimer = true;
         this.timer = new ActivityTimer();
         Thread timerThread = new Thread(this.timer);
         timerThread.start();
@@ -87,14 +89,22 @@ public class ActivitySenku extends AppCompatActivity{
         handler.post(new Runnable() {
             @Override
             public void run() {
-                while (timer.getTimer() != null){
-                    String leftTime = timer.renturnTimeRemainingFormated();
-                    if (!leftTime.equals("00:00")){
-                        timerView.setText("Time: "+ leftTime);
+                if (loadingTimer){
+                    if (!timer.renturnTimeRemainingFormated().equals("00:00")){
+                        timerView.setText("Time: "+ timer.renturnTimeRemainingFormated());
                         handler.postDelayed(this, 1000); // Actualizar cada segundc
-                        continue;
+                    } else {
+                        try {
+                            loadingTimer = false;
+                            showDefeatDialog();
+                            wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
-                    showDefeatDialog();
+                }
+                if (!loadingTimer){
+                    finish();
                 }
             }
         });
@@ -290,7 +300,7 @@ public class ActivitySenku extends AppCompatActivity{
 
     private void restartMenuInfo(){
         this.timer.getTimer().cancel();
-        this.timer.setTimer(null);
+        timerView.setText("Time: 10:00");
         this.movements.setText("0");
     }
 
@@ -298,12 +308,14 @@ public class ActivitySenku extends AppCompatActivity{
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("GAME OVER :(");
         builder.setMessage("Restart the game?");
+        builder.setCancelable(false);
 
         // Agrega el botón para reiniciar la partida
         builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 restartActivity(restartBtn);
+                notifyAll();
             }
         });
 
@@ -312,6 +324,7 @@ public class ActivitySenku extends AppCompatActivity{
             public void onClick(DialogInterface dialog, int which) {
                 backSenkuToStartMenu(backToMenuBtn);
                 timer.getTimer().cancel();
+                notifyAll();
             }
         });
         builder.show();
