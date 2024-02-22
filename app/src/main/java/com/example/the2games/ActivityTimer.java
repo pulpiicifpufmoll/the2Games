@@ -1,14 +1,16 @@
 package com.example.the2games;
 
+import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ActivityTimer implements Runnable{
 
-    private static final int TIEMPO_EN_MILISEGUNDOS = 20 * 60 * 1000; // 20 minutos en milisegundos
+    private int TIEMPO_EN_MILISEGUNDOS = 1 * 10 * 1000; // 10 minutos en milisegundos
     private Timer timer;
     private long startTime;
-
 
     public ActivityTimer() {
         this.timer = new Timer();
@@ -21,10 +23,13 @@ public class ActivityTimer implements Runnable{
     }
 
     private class TemporizadorTask extends TimerTask {
-        //TODO llamar a método que muestre un mensaje de THE END
         @Override
         public void run() {
-            System.out.println("¡Tiempo terminado! Realizar acciones aquí.");
+            //if (activitySenku != null){
+            //    activitySenku.showDefeatDialog();
+           // } else {
+           //     activity2048.showDefeatDialog();
+           // }
             timer.cancel(); // Cancelar el temporizador después de ejecutar la tarea
         }
     }
@@ -50,4 +55,28 @@ public class ActivityTimer implements Runnable{
         return leftTime >= 0 ? leftTime : 0;  // Asegurar que el tiempo restante no sea negativo
     }
 
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public int getTIEMPO_EN_MILISEGUNDOS() {
+        return TIEMPO_EN_MILISEGUNDOS;
+    }
+
+    public void setTIEMPO_EN_MILISEGUNDOS(int TIEMPO_EN_MILISEGUNDOS) {
+        this.TIEMPO_EN_MILISEGUNDOS = TIEMPO_EN_MILISEGUNDOS;
+    }
 }

@@ -8,7 +8,7 @@
         android:background="@color/mainBackground"
         tools:context=".Activity2048">
     <androidx.gridlayout.widget.GridLayout
-            android:background="@color/panelBackground"
+            android:background="@color/panelBackground2048"
             android:layout_width="355dp"
             android:layout_height="325dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +136,7 @@
                 <TextView
                         android:textSize="50dp"
                         android:text="2048"
-                        android:textColor="@color/fontColor"
+                        android:textColor="@color/primaryColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/textView4"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
@@ -147,13 +147,13 @@
                     android:layout_height="match_parent">
 
                 <Button
-                        android:onClick="back2048ToStartMenu"
+                        android:id="@+id/backBtn"
                         android:text="@string/backBtnText"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/backBtn"
+                        android:layout_height="wrap_content"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginTop="20dp" android:layout_marginStart="40dp"
-                        android:backgroundTint="@color/fontColor"/>
+                        android:backgroundTint="@color/primaryColor"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -213,7 +213,7 @@
                         android:layout_height="wrap_content" android:id="@+id/newGameBtn"
                         app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="20dp" android:layout_marginEnd="20dp"
-                        android:backgroundTint="@color/fontColor"/>
+                        android:backgroundTint="@color/primaryColor"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
@@ -224,14 +224,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/gameOver"
             android:padding="20px"
-            android:textColor="@color/fontColor"
+            android:textColor="@color/primaryColor"
             android:textSize="65px"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
             app:layout_constraintBottom_toTopOf="@+id/gridLayout2048"
             app:layout_constraintVertical_bias="0.228" android:background="#000000"
             android:drawableTint="#FFFFFF" android:foregroundTint="#000000" tools:layout_editor_absoluteX="0dp"/>
     <TextView
-            android:text="TIEMPO: 00:00"
+            android:text="Time: 00:00"
             android:id="@+id/timerView"
             style="@style/Timer"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/gridLayout2048"

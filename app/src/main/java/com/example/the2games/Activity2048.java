@@ -1,8 +1,8 @@
 package com.example.the2games;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.gridlayout.widget.GridLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,16 +22,17 @@ import android.os.Bundle;
 import java.util.Random;
 
 public class Activity2048 extends AppCompatActivity implements GestureDetector.OnGestureListener {
-    private final int percentAppear2 = 95;
     private final int NUM_FILAS = 4;
     private final int NUM_COLUMNAS = 4;
     private final Random rand = new Random(System.currentTimeMillis());
     private GestureDetector myGestureListener;
     private GridLayout gridLayout2048;
-    private Button playButton;
+    private Button playBtn;
+    private Button backBtn;
     private TextView actualScore;
     private TextView bestScore;
     private ActivityTimer timer;
+    private TextView timerView;
     private boolean isGameStarted;
 
     @Override
@@ -39,17 +41,26 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
         setContentView(R.layout.activity_2048);
         this.myGestureListener = new GestureDetector(this, this);
         this.gridLayout2048 = findViewById(R.id.gridLayout2048);
-        this.playButton = findViewById(R.id.newGameBtn);
+        this.playBtn = findViewById(R.id.newGameBtn);
+        this.backBtn = findViewById(R.id.backBtn);
         this.bestScore = findViewById(R.id.best);
+        this.timerView = findViewById(R.id.timerView);
         this.actualScore = findViewById(R.id.score);
         this.isGameStarted = false;
-        this.playButton.setOnClickListener(v -> {
-            if (!isGameStarted){
-                generateBoxes();
-                isGameStarted = true;
-                loadTimer();
-            }
-        });
+        addListenersToButtons();
+    }
+
+    private void addListenersToButtons() {
+        this.playBtn.setOnClickListener(this::startGame);
+        this.backBtn.setOnClickListener(this::back2048ToStartMenu);
+    }
+
+    public void startGame(View view){
+        if (!isGameStarted){
+            generateBoxes();
+            isGameStarted = true;
+            loadTimer();
+        }
     }
 
     public void back2048ToStartMenu(View view) {
@@ -67,8 +78,7 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
             @Override
             public void run() {
                 String timeToShow = timer.renturnTimeRemainingFormated();
-                TextView timerView = findViewById(R.id.timerView);
-                timerView.setText("TIEMPO: "+ timeToShow);
+                timerView.setText("Time: "+ timeToShow);
                 handler.postDelayed(this, 1000); // Actualizar cada segundo
             }
         });
@@ -76,8 +86,8 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
 
     private void generateBoxes() {
         try {
-            String targetRow = String.valueOf(rand.nextInt(4));
-            String targetColumn = String.valueOf(rand.nextInt(4));
+            String targetRow = String.valueOf(rand.nextInt(NUM_FILAS));
+            String targetColumn = String.valueOf(rand.nextInt(NUM_COLUMNAS));
 
             if (checkIfBoxExists(targetRow + targetColumn)){
                 Log.d("test", "ya existe");
@@ -165,6 +175,29 @@ public class Activity2048 extends AppCompatActivity implements GestureDetector.O
     public void updateActualScore(int newValue){
         actualScore.setText(newValue);
     }
+
+    public void showDefeatDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("GAME OVER :(");
+        builder.setMessage("Restart the game?");
+
+        // Agrega el botón para reiniciar la partida
+        builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //restartActivity(restartBtn);
+            }
+        });
+
+        builder.setNegativeButton("Menu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                back2048ToStartMenu(backBtn);
+            }
+        });
+        builder.show();
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
