@@ -18,7 +18,7 @@ public class TokenSenku extends androidx.appcompat.widget.AppCompatImageButton {
         this.setLayoutParams(tokenParams);
         this.setImageResource(R.drawable.senku_btn_on);
 
-        this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.btnSenkuOnBackground)));
+        this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.panelBackground)));
 
         String concatenatedRowColumn = String.valueOf(i) + String.valueOf(j);
 

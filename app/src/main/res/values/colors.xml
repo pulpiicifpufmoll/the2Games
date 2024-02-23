@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="panelBackground">#bbada0</color>
+    <color name="panelBackground">#00FFFFFF</color>
     <color name="mainBackground">#faf8ef</color>
     <color name="primaryColor">#776e65</color>
     <color name="menuButtonsBackground">#4d463f</color>
@@ -10,7 +10,6 @@
     //2048
 
     <color name="backSquare">#cdc1b4</color>
-    <color name="panelBackground2048">#00FFFFFF</color>
     <color name="boxTextColorBlack">#776e65</color>
     <color name="boxTextColorWhite">#f9f6f2</color>
 
@@ -24,6 +23,6 @@
     <color name="box256">#edcc62</color>
 
     //senku
-    <color name="btnSenkuOnBackground">#00FFFFFF</color>
-
+    <color name="btnSenkuOn">#2e2a25</color>
+    <color name="btnSenkuOff">#f5e4ce</color>
 </resources>

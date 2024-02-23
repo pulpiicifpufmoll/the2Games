@@ -8,7 +8,7 @@
         android:background="@color/mainBackground"
         tools:context=".Activity2048">
     <androidx.gridlayout.widget.GridLayout
-            android:background="@color/panelBackground2048"
+            android:background="@color/panelBackground"
             android:layout_width="355dp"
             android:layout_height="325dp"
             app:layout_constraintBottom_toBottomOf="parent"

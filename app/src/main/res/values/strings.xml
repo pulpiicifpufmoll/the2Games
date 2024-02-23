@@ -4,4 +4,5 @@
     <string name="senku">SENKU</string>
     <string name="backBtnText">Back</string>
     <string name="restart">Restart</string>
+    <string name="icon_description">App icon</string>
 </resources>

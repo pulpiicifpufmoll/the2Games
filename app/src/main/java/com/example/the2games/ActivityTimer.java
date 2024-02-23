@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 public class ActivityTimer implements Runnable{
 
-    private int TIEMPO_EN_MILISEGUNDOS = 1 * 30 * 1000; // 10 minutos en milisegundos
+    private int TIEMPO_EN_MILISEGUNDOS = 10 * 60 * 1000; // 10 minutos en milisegundos
     private Timer timer;
     private long startTime;
 

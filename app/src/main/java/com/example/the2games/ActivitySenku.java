@@ -33,7 +33,7 @@ public class ActivitySenku extends AppCompatActivity{
     private boolean isGameStarted;
     boolean loadingTimer;
 
-    private GridLayout.LayoutParams paramsFromLastTokenMoved;
+    private TokenSenku lastMovedToken;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -94,13 +94,8 @@ public class ActivitySenku extends AppCompatActivity{
                         timerView.setText("Time: "+ timer.renturnTimeRemainingFormated());
                         handler.postDelayed(this, 1000); // Actualizar cada segundc
                     } else {
-                        try {
-                            loadingTimer = false;
-                            showDefeatDialog();
-                            wait();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
+                        loadingTimer = false;
+                        showDefeatDialog();
                     }
                 }
                 if (!loadingTimer){
@@ -110,7 +105,7 @@ public class ActivitySenku extends AppCompatActivity{
         });
     }
 
-    public boolean checkEmptyPositionsLayout(int i, int j){
+    private boolean checkEmptyPositionsLayout(int i, int j){
 
         if (i == 0 && (j < 2 || j > 4)
         || i == 1 && (j < 2 || j > 4)
@@ -119,9 +114,7 @@ public class ActivitySenku extends AppCompatActivity{
         || i == 3 && j == 3){
             return true;
         }
-
         return false;
-
     }
 
     private void setListenersBackgroundButtons(GridLayout layout){
@@ -138,9 +131,8 @@ public class ActivitySenku extends AppCompatActivity{
                         if (senkuTokenToRemove != null){
                             //obtenemos params del imgBtnBack pulsado ya que necesitamos su fila y columna para el update de posición del token
                             GridLayout.LayoutParams paramsBack = (GridLayout.LayoutParams) backgroundButton.getLayoutParams();
-                            GridLayout.LayoutParams paramsToken = (GridLayout.LayoutParams) senkuTokenToMove.getLayoutParams();
 
-                            moveToken(senkuTokenToMove, paramsBack, paramsToken, idBackgroundPosition, senkuTokenToRemove);
+                            moveToken(senkuTokenToMove, paramsBack, idBackgroundPosition, senkuTokenToRemove);
                         }
                         selectedTokenId = -1;
                         endGame(checkIfIsDefeat(), checkIfIsVictory());
@@ -173,17 +165,23 @@ public class ActivitySenku extends AppCompatActivity{
         this.movements.setText(String.valueOf(Math.max(0, updatedValue)));
     }
 
-    private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, GridLayout.LayoutParams paramsToken, int newPositionId, TokenSenku tokenToRemove){
+    private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, int newPositionId, TokenSenku tokenToRemove){
         if (!isGameStarted){
             isGameStarted = true;
             loadTimer();
         }
 
-        paramsToken.rowSpec = paramsBack.rowSpec;
-        paramsToken.columnSpec = paramsBack.columnSpec;
+        this.lastMovedToken = token;
+
+        GridLayout.LayoutParams tokensLayoutParams = (GridLayout.LayoutParams) token.getLayoutParams();
+
+        tokensLayoutParams.rowSpec = paramsBack.rowSpec;
+        tokensLayoutParams.columnSpec = paramsBack.columnSpec;
 
         token.setId(newPositionId);
-        token.setLayoutParams(paramsToken);
+        token.setLayoutParams(tokensLayoutParams);
+
+        Log.d("test", "LastPosition " + this.lastMovedToken.getId() + " NewPosition " + token.getId());
 
         List<TokenSenku> tokenToSetPrevious = new ArrayList<>(getActualTokens());
         setPreviousTokens(tokenToSetPrevious);
@@ -315,7 +313,7 @@ public class ActivitySenku extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 restartActivity(restartBtn);
-                notifyAll();
+                timer.getTimer().cancel();
             }
         });
 
@@ -324,7 +322,6 @@ public class ActivitySenku extends AppCompatActivity{
             public void onClick(DialogInterface dialog, int which) {
                 backSenkuToStartMenu(backToMenuBtn);
                 timer.getTimer().cancel();
-                notifyAll();
             }
         });
         builder.show();
