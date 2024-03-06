@@ -3,15 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="panelBackground">#00FFFFFF</color>
-    <color name="mainBackground">#faf8ef</color>
+    <color name="mainBackground">#e0d2c1</color>
     <color name="primaryColor">#776e65</color>
     <color name="menuButtonsBackground">#4d463f</color>
+    <color name="transparent">#00FFFFFF</color>
 
     //2048
 
     <color name="backSquare">#cdc1b4</color>
-    <color name="boxTextColorBlack">#776e65</color>
-    <color name="boxTextColorWhite">#f9f6f2</color>
 
     <color name="box2">#eee4da</color>
     <color name="box4">#eee1c9</color>
@@ -21,8 +20,12 @@
     <color name="box64">#f75f3b</color>
     <color name="box128">#edd073</color>
     <color name="box256">#edcc62</color>
+    <color name="box512">#edc851</color>
+    <color name="box1024">#edc53f</color>
+    <color name="box2048">#edc22e</color>
 
     //senku
     <color name="btnSenkuOn">#2e2a25</color>
     <color name="btnSenkuOff">#f5e4ce</color>
+    <color name="btnSenkuSelected">#de9f21</color>
 </resources>

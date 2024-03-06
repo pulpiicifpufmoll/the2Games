@@ -13,7 +13,9 @@
             android:background="@color/panelBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="30dp" android:id="@+id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+    >
 
         <androidx.gridlayout.widget.GridLayout
                 android:layout_width="wrap_content"
@@ -255,21 +257,21 @@
             android:layout_width="match_parent"
             android:layout_height="61dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            android:background="#F5E4CE" android:id="@+id/constraintLayout2"
+            android:background="@color/menuButtonsBackground" android:id="@+id/constraintLayout2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
                 android:text="Time: 10:00"
                 android:id="@+id/timeView"
-                style="@style/menuSenku"
+                style="@style/infoMenu"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="24dp"/>
         <TextView
                 android:text="Movements:"
                 android:id="@+id/movementLabel"
-                style="@style/menuSenku"
+                style="@style/infoMenu"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="116dp"
@@ -279,12 +281,12 @@
         <TextView
                 android:text="0"
                 android:id="@+id/movementValue"
-                style="@style/menuSenku"
+                style="@style/infoMenu"
                 app:layout_constraintStart_toEndOf="@+id/movementLabel"
                 android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="parent"/>
         <ImageButton
                 android:id="@+id/previousMove"
-                android:backgroundTint="#f5e4ce"
+                android:backgroundTint="@android:color/transparent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/previous_move"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"

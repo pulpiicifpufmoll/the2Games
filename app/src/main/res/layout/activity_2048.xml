@@ -11,13 +11,12 @@
             android:background="@color/panelBackground"
             android:layout_width="355dp"
             android:layout_height="325dp"
+            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/gridLayout2048"
-            app:alignmentMode="alignMargins"
-
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" app:layout_constraintVertical_bias="0.696">
+    >
         <Button
                 android:clickable="false"
                 style="@style/SquareButtonStyle"
@@ -118,12 +117,12 @@
                 android:id="@+id/backSquare33"/>
     </androidx.gridlayout.widget.GridLayout>
     <LinearLayout
-            android:layout_width="338dp"
-            android:layout_height="174dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="44dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="43dp"
-            android:layout_marginEnd="35dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/linearLayout3">
         <LinearLayout
                 android:orientation="vertical"
@@ -164,23 +163,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="88dp" android:id="@+id/linearLayout">
                 <TextView
-                        android:text="4"
+                        android:text="0"
                         android:id="@+id/score"
                         android:background="@color/panelBackground"
-                        android:textColor="@color/white"
+                        android:textColor="@color/primaryColor"
                         android:gravity="center"
                         android:textSize="25dp"
                         android:textAlignment="center"
                         android:layout_width="65dp"
                         android:layout_height="40dp"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="44dp" app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="44dp"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="10dp"/>
                 <TextView
                         android:text="0"
                         android:id="@+id/best"
                         android:background="@color/panelBackground"
-                        android:textColor="@color/white"
+                        android:textColor="@color/primaryColor"
                         android:gravity="center"
                         android:textSize="25dp"
                         android:textAlignment="center"
@@ -217,23 +217,40 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
-    <TextView
-            android:visibility="invisible"
-            android:text="GAME OVER"
-            android:textAlignment="center"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/gameOver"
-            android:padding="20px"
-            android:textColor="@color/primaryColor"
-            android:textSize="65px"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-            app:layout_constraintBottom_toTopOf="@+id/gridLayout2048"
-            app:layout_constraintVertical_bias="0.228" android:background="#000000"
-            android:drawableTint="#FFFFFF" android:foregroundTint="#000000" tools:layout_editor_absoluteX="0dp"/>
-    <TextView
-            android:text="Time: 00:00"
-            android:id="@+id/timerView"
-            style="@style/Timer"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/gridLayout2048"
-            android:layout_marginBottom="12dp"/>
+            android:layout_height="60dp"
+            android:background="@color/menuButtonsBackground" android:id="@+id/constraintLayout2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/gridLayout2048">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/timerView"
+                    android:text="Time: 10:00"
+                    style="@style/infoMenu"
+                    android:layout_weight="0.9"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="16dp"/>
+            <ImageButton
+                    android:id="@+id/previousMove2048"
+                    style="@style/infoMenu"
+                    android:layout_weight="0.1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/previous_move"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

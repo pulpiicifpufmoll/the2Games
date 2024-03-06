@@ -2,7 +2,7 @@
 <resources>
     <style name="MenuButtons">
         <item name="android:backgroundTint">@color/menuButtonsBackground</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/mainBackground</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">5dp</item>
@@ -39,11 +39,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
-    <style name="menuSenku">
+    <style name="infoMenu">
+        <item name="android:backgroundTint">@color/menuButtonsBackground</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">20dp</item>
-        <item name="android:textColor">@color/primaryColor</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20dp</item>
+    </style>
+    <style name="navButton">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:padding">10dp</item>
     </style>
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@color/mainBackground"
+            android:layout_height="match_parent">
+        <ImageButton
+                android:background="@drawable/radius_button"
+                app:srcCompat="@drawable/home_icon"
+                style="@style/navButton"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/scoreHomeButton"
+                />
+        <TextView
+                android:textSize="40dp"
+                android:gravity="center"
+                android:text="BEST SCORES"
+                android:textStyle="bold"
+                android:layout_weight="0.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scoreTitle"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:textAlignment="center"
+                android:id="@+id/scoreRecyclerView"
+                android:layout_weight="0.8"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

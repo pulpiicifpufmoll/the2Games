@@ -7,8 +7,6 @@ import androidx.gridlayout.widget.GridLayout;
 
 public class TokenSenku extends androidx.appcompat.widget.AppCompatImageButton {
 
-
-
     public TokenSenku(Context context, int i, int j) {
         super(context);
 

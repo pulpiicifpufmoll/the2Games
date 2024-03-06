@@ -5,28 +5,48 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/menu_gradient"
+        android:background="@color/mainBackground"
         tools:context=".StartActivity">
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
+    <ImageButton
+            android:id="@+id/logOutButton"
+            android:background="@drawable/radius_button"
+            style="@style/navButton"
+            android:layout_marginRight="5dp"
+            app:srcCompat="@drawable/logout_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/linearLayout5">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout4"
+        >
+            <Button
+                    style="@style/MenuButtons"
+                    android:text="@string/_2048"
+                    android:id="@+id/btn2048"
+            />
+            <Button
+                    style="@style/MenuButtons"
+                    android:text="@string/senku"
+                    android:id="@+id/btnSenku"
+            />
+        </LinearLayout>
         <Button
-                android:onClick="activity2048"
                 style="@style/MenuButtons"
-                android:text="@string/_2048"
-                android:id="@+id/backSquare1"
+                android:text="@string/score"
+                android:id="@+id/btnScores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
         />
-        <Button
-                android:onClick="activitySenku"
-                style="@style/MenuButtons"
-                android:text="@string/senku"
-                android:id="@+id/button"
-        />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.the2games;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.widget.TextView;
@@ -10,22 +11,20 @@ import androidx.gridlayout.widget.GridLayout;
 
 import java.util.ArrayList;
 
-@SuppressLint("ViewConstructor")
 public class Box extends androidx.appcompat.widget.AppCompatButton {
     private int rowPosition;
     private int columnPosition;
     private String value;
     private GridLayout.LayoutParams defaultParams = new GridLayout.LayoutParams();
 
-    @SuppressLint({"ResourceType", "DefaultLocale"})
-    public Box(Context context, String value, String targetRow, String targetColumn) {
+    public Box(Context context, String value, int targetRow, int targetColumn) {
         super(context);
         this.setClickable(false);
 
-        this.rowPosition = Integer.parseInt(targetRow);
-        this.columnPosition = Integer.parseInt(targetColumn);
-        this.defaultParams.rowSpec = GridLayout.spec(Integer.parseInt(targetRow));
-        this.defaultParams.columnSpec = GridLayout.spec(Integer.parseInt(targetColumn));
+        this.rowPosition = targetRow;
+        this.columnPosition = targetColumn;
+        this.defaultParams.rowSpec = GridLayout.spec(targetRow);
+        this.defaultParams.columnSpec = GridLayout.spec(targetColumn);
 
         float density = getResources().getDisplayMetrics().density;
         this.defaultParams.width = (int) (82 * density);
@@ -36,7 +35,7 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
 
         setValueAndStyle(value);
 
-        String concatenatedRowColumn = targetRow + targetColumn;
+        String concatenatedRowColumn = String.valueOf(targetRow) + String.valueOf(targetColumn);
         this.setId(Integer.parseInt(String.format("%02d", Integer.parseInt(concatenatedRowColumn))));
 
         this.setTextAppearance(R.style.SquareButtonText);
@@ -104,6 +103,21 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                 this.value = value;
                 this.setText("256");
                 break;
+            case "512":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box512)));
+                this.value = value;
+                this.setText("512");
+                break;
+            case "1024":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box1024)));
+                this.value = value;
+                this.setText("1024");
+                break;
+            case "2048":
+                this.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getContext(), R.color.box2048)));
+                this.value = value;
+                this.setText("2048");
+                break;
         }
     }
 
@@ -112,6 +126,8 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
         nextBox.setValueAndStyle(String.valueOf(nextValue));
 
         int actualScoreValue = Integer.valueOf(((Activity2048) getContext()).getActualScore().getText().toString());
+        ((Activity2048) getContext()).setPreviousActualScore(actualScoreValue);
+
         actualScoreValue += nextValue;
         ((Activity2048) getContext()).updateActualScore(actualScoreValue);
 
@@ -147,7 +163,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         column++;
                         setColumnPosition(column);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
@@ -172,7 +187,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         column--;
                         setColumnPosition(column);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
@@ -197,7 +211,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         row--;
                         setRowPosition(row);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);
@@ -222,7 +235,6 @@ public class Box extends androidx.appcompat.widget.AppCompatButton {
                         row++;
                         setRowPosition(row);
                         updateValueTest = String.valueOf(this.rowPosition) + String.valueOf(this.columnPosition);
-                        //this.setText(updateValueTest);
                         this.setId(Integer.parseInt(updateValueTest));
                         this.defaultParams.columnSpec = GridLayout.spec(column);
                         this.defaultParams.rowSpec = GridLayout.spec(row);

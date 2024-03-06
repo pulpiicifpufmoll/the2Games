@@ -3,6 +3,7 @@ package com.example.the2games;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.os.Bundle;
 import androidx.gridlayout.widget.GridLayout;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
 
 public class ActivitySenku extends AppCompatActivity{
@@ -29,11 +32,14 @@ public class ActivitySenku extends AppCompatActivity{
     private ImageButton previousMovementBtn;
     private TextView movements;
     private TextView timerView;
-    private ActivityTimer timer;
     private boolean isGameStarted;
-    boolean loadingTimer;
-
+    private CountDownTimer timer;
+    private int timerMinuts = 10;
+    private int timerSeconds = 0;
+    private GridLayout.LayoutParams previousPositionParams;
+    private int previousTokenId;
     private TokenSenku lastMovedToken;
+    private TokenSenku lastDeletedToken;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -79,30 +85,23 @@ public class ActivitySenku extends AppCompatActivity{
         selectedTokenId = token.getId();
     }
 
-    private void loadTimer(){
-        this.loadingTimer = true;
-        this.timer = new ActivityTimer();
-        Thread timerThread = new Thread(this.timer);
-        timerThread.start();
+    private void startCountdownTimer() {
+        timer = new CountDownTimer((timerMinuts*60+timerSeconds)*1000, 1000) {
+            public void onTick(long millisUntilFinished) {
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (loadingTimer){
-                    if (!timer.renturnTimeRemainingFormated().equals("00:00")){
-                        timerView.setText("Time: "+ timer.renturnTimeRemainingFormated());
-                        handler.postDelayed(this, 1000); // Actualizar cada segundc
-                    } else {
-                        loadingTimer = false;
-                        showDefeatDialog();
-                    }
+                if(timerSeconds == 0) {
+                    timerMinuts--;
+                    timerSeconds = 59;
+                }else{
+                    timerSeconds--;
                 }
-                if (!loadingTimer){
-                    finish();
-                }
+                timerView.setText("Time: " + String.format("%02d:%02d", timerMinuts, timerSeconds));
             }
-        });
+
+            public void onFinish() {
+                showDefeatDialog();
+            }
+        }.start();
     }
 
     private boolean checkEmptyPositionsLayout(int i, int j){
@@ -168,23 +167,22 @@ public class ActivitySenku extends AppCompatActivity{
     private void moveToken(TokenSenku token, GridLayout.LayoutParams paramsBack, int newPositionId, TokenSenku tokenToRemove){
         if (!isGameStarted){
             isGameStarted = true;
-            loadTimer();
+            startCountdownTimer();
         }
 
-        this.lastMovedToken = token;
+        this.previousPositionParams = (GridLayout.LayoutParams) token.getLayoutParams();
+        this.previousTokenId = token.getId();
 
-        GridLayout.LayoutParams tokensLayoutParams = (GridLayout.LayoutParams) token.getLayoutParams();
+        GridLayout.LayoutParams newLayoutParams = new GridLayout.LayoutParams();
 
-        tokensLayoutParams.rowSpec = paramsBack.rowSpec;
-        tokensLayoutParams.columnSpec = paramsBack.columnSpec;
+        newLayoutParams.rowSpec = paramsBack.rowSpec;
+        newLayoutParams.columnSpec = paramsBack.columnSpec;
 
         token.setId(newPositionId);
-        token.setLayoutParams(tokensLayoutParams);
+        token.setLayoutParams(newLayoutParams);
 
-        Log.d("test", "LastPosition " + this.lastMovedToken.getId() + " NewPosition " + token.getId());
-
-        List<TokenSenku> tokenToSetPrevious = new ArrayList<>(getActualTokens());
-        setPreviousTokens(tokenToSetPrevious);
+        this.lastMovedToken = token;
+        this.lastDeletedToken = tokenToRemove;
 
         removeToken(tokenToRemove);
 
@@ -199,15 +197,17 @@ public class ActivitySenku extends AppCompatActivity{
 
     private void endGame(boolean isDefeat, boolean isVictory){
         if (isVictory){
-            //TODO dialog de victoria
+            showVictoryDialog();
         } else if (isDefeat){
-            Log.d("test", "Has perdidooooooo");
             showDefeatDialog();
         }
     }
 
     private boolean checkIfIsVictory(){
-        return this.actualTokens.isEmpty();
+        if (actualTokens.size() == 1){
+            return true;
+        }
+        return false;
     }
 
     private boolean checkIfIsDefeat(){
@@ -274,7 +274,7 @@ public class ActivitySenku extends AppCompatActivity{
                 idParsed = String.valueOf(i) + String.valueOf(Math.max(j - 1, 0));
                 tokenNextTo = findViewById(Integer.parseInt(idParsed));
 
-                idParsed = String.valueOf(i) + String.valueOf(Math.max(i - 2, 0));
+                idParsed = String.valueOf(i) + String.valueOf(Math.max(j - 2, 0));
                 tokenNextTo2Positions = findViewById(Integer.parseInt(idParsed));
 
                 if (tokenNextTo != null && tokenNextTo2Positions == null){
@@ -297,9 +297,31 @@ public class ActivitySenku extends AppCompatActivity{
     }
 
     private void restartMenuInfo(){
-        this.timer.getTimer().cancel();
+        timer.cancel();
         timerView.setText("Time: 10:00");
         this.movements.setText("0");
+    }
+
+    public void showVictoryDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("VICTORY :D");
+        builder.setMessage("Congratulations, you are a senku genius!");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                restartActivity(restartBtn);
+            }
+        });
+
+        builder.setNegativeButton("Menu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                backSenkuToStartMenu(backToMenuBtn);
+            }
+        });
+        builder.show();
     }
 
     public void showDefeatDialog() {
@@ -308,12 +330,10 @@ public class ActivitySenku extends AppCompatActivity{
         builder.setMessage("Restart the game?");
         builder.setCancelable(false);
 
-        // Agrega el botón para reiniciar la partida
         builder.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 restartActivity(restartBtn);
-                timer.getTimer().cancel();
             }
         });
 
@@ -321,7 +341,6 @@ public class ActivitySenku extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 backSenkuToStartMenu(backToMenuBtn);
-                timer.getTimer().cancel();
             }
         });
         builder.show();
@@ -343,16 +362,18 @@ public class ActivitySenku extends AppCompatActivity{
         this.isGameStarted = false;
     }
 
-    public void previousMovement(View view){
-        List<TokenSenku> tokens = new ArrayList<>(getActualTokens());
+    public void previousMovement(View view) {
+        actualTokens.add(lastDeletedToken);
 
-        for (TokenSenku t : tokens){
-            removeToken(t);
+        for (TokenSenku t : this.actualTokens) {
+            if (t == lastMovedToken){
+                t.setId(previousTokenId);
+                t.setLayoutParams(previousPositionParams);
+            } else if (t == lastDeletedToken){
+                gridLayoutSenku.addView(t);
+            }
         }
-        for (TokenSenku t : previousTokens){
-            this.gridLayoutSenku.addView(t);
-        }
-        setActualTokens(getPreviousTokens());
+
         updateMovements(true);
     }
 

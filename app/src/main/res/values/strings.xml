@@ -2,6 +2,7 @@
     <string name="app_name">the2Games</string>
     <string name="_2048">2048</string>
     <string name="senku">SENKU</string>
+    <string name="score">SCORES</string>
     <string name="backBtnText">Back</string>
     <string name="restart">Restart</string>
     <string name="icon_description">App icon</string>
