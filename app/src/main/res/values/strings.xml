@@ -6,4 +6,6 @@
     <string name="backBtnText">Back</string>
     <string name="restart">Restart</string>
     <string name="icon_description">App icon</string>
+    <string name="passwordsError">Passwords do not match</string>
+    <string name="userExists">This user already exists</string>
 </resources>

@@ -59,15 +59,18 @@ public class ActivityRegister extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else if (checkIfUserExists(username)){
-            Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This user already exists", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
         }
     }
 
     private boolean checkIfUserExists(String username){
         String userSaved = sharedPreferences.getString(username + "_user", "");
-        return userSaved != null;
+        if (!userSaved.equals("")){
+            return true;
+        }
+        return false;
     }
 
     public void goToLogin(View v){
