@@ -48,7 +48,9 @@ public class ActivityRegister extends AppCompatActivity {
         String password = textViewPassword.getText().toString();
         String passwordConfirm = textViewConfirmPassword.getText().toString();
 
-        if((!password.equals("") || !passwordConfirm.equals("")) && password.equals(passwordConfirm)){
+        if (checkIfUserExists(username)){
+            Toast.makeText(this, "This user already exists", Toast.LENGTH_SHORT).show();
+        } else if((!password.equals("") || !passwordConfirm.equals("")) && password.equals(passwordConfirm)){
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(username + "_user", username);
             editor.putString(username + "_password", hashPassword(password));
@@ -58,8 +60,6 @@ public class ActivityRegister extends AppCompatActivity {
             Intent intent = new Intent(this, ActivityLogin.class);
             startActivity(intent);
             finish();
-        } else if (checkIfUserExists(username)){
-            Toast.makeText(this, "This user already exists", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
         }
